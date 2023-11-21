@@ -2,12 +2,12 @@
 
 ## Steps to Completion
 
-- [ ] Create an actual idea for the SPA
-- [ ] Plan what it will do and why it has the ability to do those things
-- [ ] What will each button do and lead to? (Reactivity)
-- [ ] Create a user story (to help with how to design things later on)
+- [x] Create an actual idea for the SPA (use checklist below)
+- [x] Plan what it will do and why it has the ability to do those things
 - [ ] Design the SPA on paper and get a mockup of what it will look like
+- [ ] What will each button do and lead to? (Reactivity)
 - [ ] Put it into [Figma](https://www.figma.com/) and make it look pretty
+- [ ] Create a user story (maybe refactor design based on this)
 - [ ] Start coding it up (Componentize it as much as you can for reusability)
 - [ ] Test it yourself and get others to test it too
 - [ ] Fix any bugs that come up and refactor
