@@ -14,6 +14,10 @@
   --spc-100: 1rem;
   --spc-200: calc(var(--spc-100) * 2);
 
+  /* Border radius */
+  --bor-100: calc(var(--spc-100) * 0.67);
+  --bor-200: calc(var(--spc-200) * 0.67);
+
   /* Colors */
   --clr-neutral-100: hsl(0 0% 100%);
   --clr-neutral-200: hsl(0 0% 97%);
@@ -71,7 +75,7 @@ h3 {
 .card {
   padding: var(--spc-200);
   background-color: var(--clr-neutral-100);
-  border-radius: var(--spc-200);
+  border-radius: var(--bor-200);
 }
 
 .text-right {
@@ -96,6 +100,10 @@ h3 {
 
 .gap-2 {
   gap: var(--spc-200);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 @media (width >= 768px) {
