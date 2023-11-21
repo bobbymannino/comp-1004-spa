@@ -32,43 +32,48 @@ function replaceWith(el) {
   const format = el.getAttribute("data-replace-with");
   if (!format) return;
 
+  let newText = "";
+
   switch (format) {
     case "dd": {
-      el.innerText = date.getDate();
+      newText = date.getDate();
       break;
     }
     case "mm": {
-      el.innerText = date.getMonth() + 1;
+      newText = date.getMonth() + 1;
       break;
     }
     case "yy": {
-      el.innerText = date.getFullYear().toString().slice(-2);
+      newText = date.getFullYear().toString().slice(-2);
       break;
     }
     case "yyyy": {
-      el.innerText = date.getFullYear();
+      newText = date.getFullYear();
       break;
     }
     case "day": {
-      el.innerText = date.toLocaleDateString("en-US", { weekday: "long" });
+      newText = date.toLocaleDateString("en-US", { weekday: "long" });
       break;
     }
     case "day-short": {
-      el.innerText = date.toLocaleDateString("en-US", { weekday: "short" });
+      newText = date.toLocaleDateString("en-US", { weekday: "short" });
       break;
     }
     case "month": {
-      el.innerText = date.toLocaleDateString("en-US", { month: "long" });
+      newText = date.toLocaleDateString("en-US", { month: "long" });
       break;
     }
     case "month-short": {
-      el.innerText = date.toLocaleDateString("en-US", { month: "short" });
+      newText = date.toLocaleDateString("en-US", { month: "short" });
       break;
     }
     default: {
-      el.innerText = "Invalid format";
+      newText = "Invalid format";
     }
   }
+
+  // Only update the text if it has changed
+  if (newText !== el.textContent) el.textContent = newText;
 }
 
 // What to do on initialization
