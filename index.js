@@ -1,3 +1,6 @@
+/** Because i dont like the time to be 12:13:3. It needs to have a 0 before the last 3 */
+const padWithZeros = ["ss", "mm", "hh", "dd", "month-num"];
+
 /** The current date as normal and updated every second */
 let date = new Date();
 
@@ -33,13 +36,13 @@ function updateDate() {
 
   currentDate = {
     /** Seconds */
-    ss: date.getSeconds(),
+    ss: date.getSeconds().toFixed(0).padStart(2, "0"),
     /** Minutes */
-    mm: date.getMinutes(),
+    mm: date.getMinutes().toFixed(0).padStart(2, "0"),
     /** Hours */
-    hh: date.getHours(),
+    hh: date.getHours().toFixed(0).padStart(2, "0"),
     /** Day of the month */
-    dd: date.getDate(),
+    dd: date.getDate().toFixed(0).padStart(2, "0"),
     /** Year */
     yyyy: date.getFullYear(),
     /** 3 letter day */
@@ -47,7 +50,7 @@ function updateDate() {
     /** Full day */
     day: date.toLocaleDateString("en-US", { weekday: "long" }),
     /** Month of the year */
-    "month-num": date.getMonth() + 1,
+    "month-num": (date.getMonth() + 1).toFixed(0).padStart(2, "0"),
     /** 3 letter month */
     "month-short": date.toLocaleDateString("en-US", { month: "short" }),
     /** Full month */
@@ -64,20 +67,19 @@ function updateDate() {
  */
 function replaceWith(el) {
   /**
-     format can equal the following things;
-     - ss = seconds = 05
-     - mm = minutes = 05
-     - hh = hour = 12
-     - dd = day of the month = 05
-     - yyyy = year = 2021
-     - yy = year = 21
-     - day-short - 3 letter day - Mon
-     - day = The current day - Monday
-     - month-num = month of the year = 03
-     - month-short - 3 letter month - Nov 
-     - month - The current month - November
-     They will be formatted in that order
-     */
+    They will be formatted in this order and can equal the following things;
+    - ss = seconds = 05
+    - mm = minutes = 05
+    - hh = hour = 12
+    - dd = day of the month = 05
+    - yyyy = year = 2021
+    - yy = year = 21
+    - day-short - 3 letter day - Mon
+    - day = The current day - Monday
+    - month-num = month of the year = 03
+    - month-short - 3 letter month - Nov 
+    - month - The current month - November
+  */
   const format = el.getAttribute("data-replace-with");
   if (!format) return;
 

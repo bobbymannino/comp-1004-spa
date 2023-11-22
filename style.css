@@ -11,6 +11,7 @@
 /* Have a centralized variable system so if I choose to change something it is easy and not a hassle */
 :root {
   /* Spacing */
+  --spc-50: calc(var(--spc-100) * 0.5);
   --spc-100: 1rem;
   --spc-200: calc(var(--spc-100) * 2);
 
@@ -22,12 +23,37 @@
   --clr-neutral-100: hsl(0 0% 100%);
   --clr-neutral-200: hsl(0 0% 97%);
   --clr-neutral-300: hsl(0 0% 93%);
+
+  /* Font sizes */
+  --siz-100: calc(var(--siz-400) * 0.55);
+  --siz-200: calc(var(--siz-400) * 0.7);
+  --siz-300: calc(var(--siz-400) * 0.85);
+  --siz-400: 1rem;
+  --siz-500: calc(var(--siz-400) * 1.2);
+  --siz-600: calc(var(--siz-400) * 1.5);
+  --siz-700: calc(var(--siz-400) * 2);
+  --siz-800: calc(var(--siz-400) * 3);
+  --siz-900: calc(var(--siz-400) * 5);
+
+  --font-size-h1: var(--siz-900);
+  --font-size-h2: var(--siz-700);
+  --font-size-h3: var(--siz-500);
+  --font-size-p: var(--siz-400);
+  --font-size-button: var(--siz-400);
 }
 
 /* Somethings like spacing should change on different window sizes */
 @media only screen and (min-width: 768px) {
   :root {
+    --spc-100: 1.5rem;
+    --siz-400: 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  :root {
     --spc-100: 2rem;
+    --siz-400: 1.5rem;
   }
 }
 
@@ -39,23 +65,29 @@ body {
 
 /* Typography is important */
 h1 {
-  font-size: 6rem;
+  font-size: var(--font-size-h1);
   font-weight: 900;
 }
 
 h2 {
-  font-size: 3rem;
-  font-weight: 400;
+  font-size: var(--font-size-h2);
+  font-weight: 800;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+}
+
+p {
+  font-size: var(--font-size-p);
   font-weight: 400;
 }
 
 /* Use classes for reusability and ease of use. If things change makes life simple */
 .container {
   --max-width: 640px;
+
   width: min(100%, var(--max-width));
   margin-inline: auto;
 }
@@ -76,6 +108,40 @@ h3 {
   padding: var(--spc-200);
   background-color: var(--clr-neutral-100);
   border-radius: var(--bor-200);
+}
+
+.btn {
+  border: none;
+  padding: var(--spc-100);
+  cursor: pointer;
+  font-size: var(--font-size-button);
+  font-weight: 600;
+}
+
+.btn-card {
+  background-color: var(--clr-neutral-100);
+  border-radius: var(--bor-200);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    135deg,
+    hsl(0 0% 0% / 0.1),
+    transparent 33%,
+    transparent 67%,
+    hsl(0 0% 0% / 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.btn-card:hover:after {
+  opacity: 1;
 }
 
 .text-right {
@@ -106,6 +172,14 @@ h3 {
   font-variant-numeric: tabular-nums;
 }
 
+.space-y-1 > * + * {
+  margin-block-start: var(--spc-50);
+}
+
+.hidden {
+  display: none;
+}
+
 @media (width >= 768px) {
   .md\:flex {
     display: flex;
@@ -125,5 +199,13 @@ h3 {
 
   .md\:col-span-6 {
     grid-column: span 6;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:block {
+    display: block;
   }
 }

@@ -10,16 +10,22 @@
   <body>
     <main>
       <div class="container grid gap-1 md:grid-cols-6">
-        <section class="summary card md:flex justify-between md:col-span-3">
-          <h1 data-replace-with="dd" class="tabular-nums"></h1>
-          <div class="text-right">
+        <section
+          class="card md:flex justify-between md:col-span-3 items-center"
+        >
+          <h1 data-replace-with="dd"></h1>
+          <div class="text-right space-y-1">
             <h3 data-replace-with="month"></h3>
             <h3 data-replace-with="day"></h3>
+            <p data-replace-with="hh:mm:ss" class="tabular-nums"></p>
           </div>
         </section>
-        <section class="new card">+</section>
-        <section class="format card md:col-span-2">DWMY</section>
-        <section class="calender card md:col-span-6">Calender</section>
+        <button class="btn btn-card">
+          <span class="md:hidden">+</span>
+          <span class="hidden md:block">New</span>
+        </button>
+        <section class="card md:col-span-2">DWMY</section>
+        <section class="card md:col-span-6">Calender</section>
       </div>
     </main>
   </body>
