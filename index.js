@@ -6,25 +6,55 @@ let date = new Date();
 
 /** The current date formatted and updated every second */
 let currentDate = {
-  /** Seconds */
+  /**
+   * Seconds
+   * @example 05
+   */
   ss: date.getSeconds(),
-  /** Minutes */
+  /**
+   * Minutes
+   * @example 06
+   */
   mm: date.getMinutes(),
-  /** Hours */
+  /**
+   * Hours
+   *@example 12
+   */
   hh: date.getHours(),
-  /** Day of the month */
+  /**
+   * Day of the month
+   * @example 04
+   */
   dd: date.getDate(),
-  /** Year */
+  /**
+   * Year
+   * @example 2021
+   */
   yyyy: date.getFullYear(),
-  /** 3 letter day */
+  /**
+   * 3 letter day
+   * @example Mon
+   */
   "day-short": date.toLocaleDateString("en-US", { weekday: "short" }),
-  /** Full day */
+  /**
+   * Full day
+   * @example Monday
+   */
   day: date.toLocaleDateString("en-US", { weekday: "long" }),
-  /** Month of the year */
+  /**
+   * Month of the year
+   * @example 04
+   */
   "month-num": date.getMonth() + 1,
-  /** 3 letter month */
+  /**
+   * 3 letter month
+   * @example Nov
+   */
   "month-short": date.toLocaleDateString("en-US", { month: "short" }),
-  /** Full month */
+  /**
+   * Full month
+   * @example November
+   */
   month: date.toLocaleDateString("en-US", { month: "long" }),
 };
 
@@ -100,6 +130,27 @@ function init() {
   setInterval(updateDate, 1e3);
   // You have to call it as well because interval will wait 1 second before actually calling it
   updateDate();
+
+  const calender = document.querySelector(".calender");
+  if (!calender) return;
+  if (currentDate["month-num"] === 2) calender.classList.add("grid-rows-5");
+  else calender.classList.add("grid-rows-4");
+
+  // get days in month
+  const daysInMonth = new Date(
+    currentDate.yyyy,
+    currentDate["month-num"],
+    0
+  ).getDate();
+
+  for (let date = 1; date <= daysInMonth; date++) {
+    const day = document.createElement("div");
+    day.className = date == currentDate.dd ? "hidden" : "";
+    const dayText = document.createElement("small");
+    dayText.textContent = date;
+    day.appendChild(dayText);
+    calender.appendChild(day);
+  }
 }
 
 // On the document load call the init function to set everything up

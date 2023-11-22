@@ -39,6 +39,7 @@
   --font-size-h2: var(--siz-700);
   --font-size-h3: var(--siz-500);
   --font-size-p: var(--siz-400);
+  --font-size-small: var(--siz-200);
   --font-size-button: var(--siz-400);
 }
 
@@ -81,6 +82,11 @@ h3 {
 
 p {
   font-size: var(--font-size-p);
+  font-weight: 400;
+}
+
+small {
+  font-size: var(--font-size-small);
   font-weight: 400;
 }
 
@@ -178,6 +184,18 @@ p {
 
 .hidden {
   display: none;
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-rows-4 {
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.grid-rows-5 {
+  grid-template-rows: repeat(5, 1fr);
 }
 
 @media (width >= 768px) {
