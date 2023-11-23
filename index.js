@@ -130,11 +130,19 @@ function init() {
   setInterval(updateDate, 1e3);
   // You have to call it as well because interval will wait 1 second before actually calling it
   updateDate();
+  // Load the calender to have the right columns and rows and days in the month
+  loadCalender();
+}
 
+// On the document load call the init function to set everything up
+document.addEventListener("DOMContentLoaded", init, { once: true });
+
+function loadCalender() {
   const calender = document.querySelector(".calender");
-  if (!calender) return;
-  if (currentDate["month-num"] === 2) calender.classList.add("grid-rows-5");
-  else calender.classList.add("grid-rows-4");
+  if (!calender) return; // Should never return but always have a failsafe so no errors are thrown
+  calender.classList.add(
+    currentDate["month-num"] === 2 ? "grid-rows-4" : "grid-rows-5"
+  ); // Feb has 28 days which is only 4 rows of 7 whereas every other month has at least 5 rows of 7
 
   // get days in month
   const daysInMonth = new Date(
@@ -143,15 +151,16 @@ function init() {
     0
   ).getDate();
 
+  // Add each day to the calender
   for (let date = 1; date <= daysInMonth; date++) {
     const day = document.createElement("div");
-    day.className = date == currentDate.dd ? "hidden" : "";
+    day.className = date == currentDate.dd ? "" : "";
     const dayText = document.createElement("small");
     dayText.textContent = date;
+    dayText.className = `rounded-full p-0.5 block ${
+      date == currentDate.dd ? "bg-primary-100" : "bg-neutral-200"
+    }`;
     day.appendChild(dayText);
     calender.appendChild(day);
   }
 }
-
-// On the document load call the init function to set everything up
-document.addEventListener("DOMContentLoaded", init, { once: true });

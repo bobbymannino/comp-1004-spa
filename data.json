@@ -1,0 +1,26 @@
+{
+  "fruit": [
+    {
+      "name": "Apple",
+      "cost": 45,
+      "calories": 100
+    },
+    {
+      "name": "Pear",
+      "cost": 55,
+      "calories": 200
+    }
+  ],
+  "vegetable": [
+    {
+      "name": "Carrot",
+      "cost": 25,
+      "calories": 50
+    },
+    {
+      "name": "Potato",
+      "cost": 35,
+      "calories": 150
+    }
+  ]
+}
