@@ -166,12 +166,14 @@ main .container .calendar {
     }
 
     & .events {
-      list-style: none;
+      list-style-type: disc;
+      list-style-position: inside;
 
       & .event {
-        &:before {
-          content: "• ";
-          color: var(--event-color);
+        color: var(--event-color);
+
+        &[data-urgent="true"] {
+          font-weight: 900;
         }
       }
     }

@@ -7,13 +7,15 @@
           "endTime": 600,
           "color": "#666444",
           "title": "Breakfast",
-          "description": "Eat breakfast please"
+          "description": "Eat breakfast please",
+          "urgent": true
         },
         {
           "startTime": 1500,
           "endTime": 1630,
           "color": "red",
-          "title": "Dinner"
+          "title": "Dinner",
+          "urgent": false
         }
       ],
       "27": [
@@ -22,7 +24,8 @@
           "endTime": 900,
           "title": "Breakfast",
           "color": "#fff888",
-          "description": "Eat breakfast please"
+          "description": "Eat breakfast please",
+          "urgent": false
         }
       ],
       "28": [
@@ -31,30 +34,34 @@
           "endTime": 900,
           "color": "#666444",
           "title": "Breakfast",
-          "description": "Eat breakfast please"
+          "description": "Eat breakfast please",
+          "urgent": false
         },
         {
           "startTime": 1200,
           "endTime": 1300,
           "color": "#666444",
           "title": "Lunch",
-          "description": "Eat lunch please"
+          "description": "Eat lunch please",
+          "urgent": false
         },
         {
           "startTime": 1800,
           "endTime": 1900,
           "color": "#666444",
           "title": "Dinner",
-          "description": "Eat dinner please"
+          "description": "Eat dinner please",
+          "urgent": false
         }
       ],
       "29": [
         {
           "startTime": 1500,
           "endTime": 1600,
-          "color": "#6d6444",
+          "color": "green",
           "title": "Dinner",
-          "description": ""
+          "description": "",
+          "urgent": true
         }
       ]
     }

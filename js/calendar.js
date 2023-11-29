@@ -41,7 +41,7 @@ function loadCalendar() {
 
 /**
  * A single event
- * @typedef {{ startTime: number, endTime: number, title: string, color: string, description: string }} CalendarEvent
+ * @typedef {{ urgent: boolean, startTime: number, endTime: number, title: string, color: string, description: string }} CalendarEvent
  */
 
 /**
@@ -109,6 +109,7 @@ function addEventToCalender(event, eventsElement) {
   const eventElement = document.createElement("li");
   eventElement.className = "event";
   eventElement.textContent = event.title;
+  eventElement.dataset.urgent = event.urgent;
   eventElement.style.setProperty("--event-color", event.color);
 
   eventsElement.appendChild(eventElement);
