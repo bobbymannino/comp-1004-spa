@@ -42,6 +42,11 @@ let currentDate = {
    */
   day: date.toLocaleDateString("en-US", { weekday: "long" }),
   /**
+   * The day of the months correct suffix
+   * @example st
+   */
+  th: nth(date.getDate()),
+  /**
    * Month of the year
    * @example 04
    */
@@ -102,6 +107,7 @@ function replaceWith(el) {
     - mm = minutes = 05
     - hh = hour = 12
     - dd = day of the month = 05
+    - th = day of the month with the correct suffix = th, st, etc
     - yyyy = year = 2021
     - yy = year = 21
     - day-short - 3 letter day - Mon
@@ -124,43 +130,20 @@ function replaceWith(el) {
   if (currentText !== newText) el.textContent = newText;
 }
 
-// What to do on initialization
-function init() {
-  // Start the updateDate function every second to stay up to date
-  setInterval(updateDate, 1e3);
-  // You have to call it as well because interval will wait 1 second before actually calling it
-  updateDate();
-  // Load the calender to have the right columns and rows and days in the month
-  loadCalender();
-}
-
-// On the document load call the init function to set everything up
-document.addEventListener("DOMContentLoaded", init, { once: true });
-
-function loadCalender() {
-  const calender = document.querySelector(".calender");
-  if (!calender) return; // Should never return but always have a failsafe so no errors are thrown
-  calender.classList.add(
-    currentDate["month-num"] === 2 ? "grid-rows-4" : "grid-rows-5"
-  ); // Feb has 28 days which is only 4 rows of 7 whereas every other month has at least 5 rows of 7
-
-  // get days in month
-  const daysInMonth = new Date(
-    currentDate.yyyy,
-    currentDate["month-num"],
-    0
-  ).getDate();
-
-  // Add each day to the calender
-  for (let date = 1; date <= daysInMonth; date++) {
-    const day = document.createElement("div");
-    day.className = date == currentDate.dd ? "" : "";
-    const dayText = document.createElement("small");
-    dayText.textContent = date;
-    dayText.className = `rounded-full p-0.5 block ${
-      date == currentDate.dd ? "bg-primary-100" : "bg-neutral-200"
-    }`;
-    day.appendChild(dayText);
-    calender.appendChild(day);
+/**
+ * Returns the correct suffix for the day of the month
+ * @param {number} dd - The date e.g. `12`
+ */
+function nth(dd) {
+  if (dd > 3 && dd < 21) return "th";
+  switch (dd % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
   }
 }

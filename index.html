@@ -4,30 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
-    <title>Calender</title>
+    <script src="js/replace-with.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <title>Calendar</title>
   </head>
   <body>
-    <main>
-      <div class="container grid gap-1 md:grid-cols-6">
-        <section
-          class="card md:flex justify-between md:col-span-3 items-center"
-        >
+    <header>
+      <div class="container">
+        <div>
           <h1 data-replace-with="dd"></h1>
-          <div class="text-right space-y-1">
-            <h3 data-replace-with="month"></h3>
-            <h3 data-replace-with="day"></h3>
-            <p data-replace-with="hh:mm:ss" class="tabular-nums"></p>
+          <div>
+            <p data-replace-with="th"></p>
+            <p data-replace-with="month"></p>
           </div>
-        </section>
-        <button class="btn btn-card">
-          <span class="md:hidden">+</span>
-          <span class="hidden md:block">New</span>
-        </button>
-        <section class="card md:col-span-2">DWMY</section>
-        <section
-          class="card md:col-span-6 calender grid grid-cols-7 gap-2"
-        ></section>
+        </div>
+        <div>
+          <button aria-label="Export event" title="Export event">
+            &uparrow;
+          </button>
+          <button aria-label="Import event" title="Import event">
+            &downarrow;
+          </button>
+          <button aria-label="New event" title="New event">&plus;</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="calendar"></div>
       </div>
     </main>
   </body>
