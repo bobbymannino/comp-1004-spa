@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="js/replace-with.js" defer></script>
-    <script src="js/calendar.js" defer></script>
-    <script src="js/app.js" defer></script>
-    <title>Calendar</title>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <div>
-          <h1 data-replace-with="dd"></h1>
-          <div>
-            <p data-replace-with="th"></p>
-            <p data-replace-with="month"></p>
-          </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <script src="js/replace-with.js" defer></script>
+        <script src="js/calendar.js" defer></script>
+        <script src="js/app.js" defer></script>
+        <title>Calendar</title>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div>
+                    <h1 data-replace-with="dd"></h1>
+                    <div>
+                        <p data-replace-with="th"></p>
+                        <p data-replace-with="month"></p>
+                    </div>
+                </div>
+                <div>
+                    <button aria-label="Export event" title="Export event">
+                        &uparrow;
+                    </button>
+                    <button aria-label="Import event" title="Import event">
+                        &downarrow;
+                    </button>
+                    <button
+                        aria-label="New event"
+                        title="New event"
+                        onclick="openModal('new__event')"
+                    >
+                        &plus;
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="calendar"></div>
+            </div>
+        </main>
+        <div class="modal hidden new__event">
+            <div class="container">
+                <h2 class="modal__title">New Event</h2>
+                <form onsubmit="event.preventDefault(); newEvent(this)">
+                    <h3>Date</h3>
+                    <input type="date" name="date" />
+                    <h3>Start Time</h3>
+                    <input type="time" name="start__time" />
+                    <h3>End Time</h3>
+                    <input type="time" name="end__time" />
+                    <h3>Title</h3>
+                    <input type="text" name="title" />
+                    <h3>Description</h3>
+                    <textarea name="description"></textarea>
+                    <h3>Color</h3>
+                    <input type="color" name="color" />
+                    <h3>Urgent</h3>
+                    <input type="checkbox" name="urgent" />
+                    <button>Add</button>
+                    <button
+                        onclick="event.preventDefault(); closeModal('new__event')"
+                        class="secondary"
+                    >
+                        Close
+                    </button>
+                </form>
+            </div>
         </div>
-        <div>
-          <button aria-label="Export event" title="Export event">
-            &uparrow;
-          </button>
-          <button aria-label="Import event" title="Import event">
-            &downarrow;
-          </button>
-          <button aria-label="New event" title="New event">&plus;</button>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="container">
-        <div class="calendar"></div>
-      </div>
-    </main>
-  </body>
+    </body>
 </html>
