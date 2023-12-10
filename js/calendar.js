@@ -13,7 +13,7 @@ let calendarData = {};
 /**
  * Loads the calendar and calendar data.
  */
-function loadCalendar() {
+async function loadCalendar() {
     /** The amount of days in the current month */
     const daysInMonth = new Date(
         currentDate.yyyy,
@@ -42,7 +42,41 @@ function loadCalendar() {
         calendarElement.appendChild(day);
     }
 
-    loadCalendarData();
+    await loadCalendarData();
+
+    loadBanner();
+}
+
+/**
+ * Loads the banner element and sets it right
+ */
+function loadBanner() {
+    const todaysEvents = checkForEvents(
+        currentDate.yyyy,
+        parseInt(currentDate["month-num"]),
+        parseInt(currentDate.dd)
+    );
+
+    const banner = document.querySelector("header[role='banner']");
+    banner.dataset.hidden = todaysEvents.length === 0;
+
+    const bannerList = banner.querySelector("ol");
+
+    todaysEvents.forEach((event) => {
+        const eventElement = document.createElement("div");
+        eventElement.className = "event";
+        eventElement.dataset.urgent = event.urgent;
+        eventElement.dataset.allDay = event.allDay === true;
+        eventElement.style.setProperty("--event-color", event.color);
+
+        const eventTitle = document.createElement("p");
+        eventTitle.className = "title";
+        eventTitle.textContent = event.title;
+
+        eventElement.appendChild(eventTitle);
+
+        bannerList.appendChild(eventElement);
+    });
 }
 
 /**
@@ -106,6 +140,17 @@ function addEventsToDay(date, day) {
     day.sort((a, b) => a.startTime - b.startTime)
         .sort((a) => (a.allDay ? -1 : 0))
         .forEach((event) => addEventToCalender(event, dayEventsElement));
+}
+
+/**
+ * Check for events and return a list of events for that day
+ * @param {string} year - The year to check for events e.g. 2004
+ * @param {string} month - The month to check for events e.g. 12
+ * @param {string} date - The date to check for events e.g. 1
+ * @returns {Day} - An array of events for that day
+ */
+function checkForEvents(year, month, date) {
+    return calendarData[year][month][date] || [];
 }
 
 /**
