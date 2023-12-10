@@ -18,6 +18,7 @@
                 {
                     "color": "red",
                     "title": "Staying at mums",
+                    "description": "Staying at mums",
                     "urgent": false,
                     "startTime": 1600,
                     "endTime": 1700

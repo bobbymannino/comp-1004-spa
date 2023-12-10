@@ -239,8 +239,10 @@ main .container .calendar {
         }
 
         & .events {
-            list-style-type: disc;
-            list-style-position: inside;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            list-style: none;
 
             &:empty:after {
                 content: "No events for this day";
@@ -250,22 +252,33 @@ main .container .calendar {
 
             & .event {
                 color: var(--event-color);
+                cursor: pointer;
 
                 &[data-urgent="true"] {
-                    &:after {
+                    & .title:after {
                         content: " (Urgent)";
                         font-size: 50%;
                     }
                 }
 
+                .description {
+                    display: none;
+                }
+
+                &[data-open="true"] {
+                    .description {
+                        display: block;
+                    }
+                }
+
                 &[data-all-day="true"] {
-                    &:after {
+                    & .title:after {
                         content: " (All Day)";
                         font-size: 50%;
                     }
 
                     &[data-urgent="true"] {
-                        &:after {
+                        & .title:after {
                             content: " (All Day, Urgent)";
                         }
                     }

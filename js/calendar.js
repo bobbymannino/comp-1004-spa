@@ -116,12 +116,28 @@ function addEventsToDay(date, day) {
 function addEventToCalender(event, eventsElement) {
     const eventElement = document.createElement("li");
     eventElement.className = "event";
-    eventElement.textContent = event.title;
     eventElement.dataset.urgent = event.urgent;
     eventElement.dataset.allDay = event.allDay === true;
     eventElement.style.setProperty("--event-color", event.color);
+    eventElement.title = "Toggle description";
+
+    const eventTitle = document.createElement("p");
+    eventTitle.className = "title";
+    eventTitle.textContent = event.title;
+
+    const eventDescription = document.createElement("small");
+    eventDescription.className = "description";
+    eventDescription.textContent = event.description;
+
+    eventElement.appendChild(eventTitle);
+    eventElement.appendChild(eventDescription);
 
     eventsElement.appendChild(eventElement);
+
+    eventElement.addEventListener("click", () => {
+        eventElement.dataset.open =
+            eventElement.dataset.open === "true" ? false : true;
+    });
 }
 
 /**
