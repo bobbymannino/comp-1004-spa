@@ -252,7 +252,23 @@ main .container .calendar {
                 color: var(--event-color);
 
                 &[data-urgent="true"] {
-                    font-weight: 900;
+                    &:after {
+                        content: " (Urgent)";
+                        font-size: 50%;
+                    }
+                }
+
+                &[data-all-day="true"] {
+                    &:after {
+                        content: " (All Day)";
+                        font-size: 50%;
+                    }
+
+                    &[data-urgent="true"] {
+                        &:after {
+                            content: " (All Day, Urgent)";
+                        }
+                    }
                 }
             }
         }

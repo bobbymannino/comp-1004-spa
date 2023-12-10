@@ -47,7 +47,12 @@ function loadCalendar() {
 
 /**
  * A single event
- * @typedef {{ urgent: boolean, startTime: number, endTime: number, title: string, color: string, description: string }} CalendarEvent
+ * @typedef {{
+ * urgent: boolean,
+ * title: string,
+ * color: string,
+ * description: string,
+ * } & ({ allDay: true } | { startTime: number, endTime: number })} CalendarEvent
  */
 
 /**
@@ -98,9 +103,9 @@ function addEventsToDay(date, day) {
         `.day:nth-child(${date}) .events`
     );
 
-    day.sort((a, b) => a.startTime - b.startTime).forEach((event) =>
-        addEventToCalender(event, dayEventsElement)
-    );
+    day.sort((a, b) => a.startTime - b.startTime)
+        .sort((a) => (a.allDay ? -1 : 0))
+        .forEach((event) => addEventToCalender(event, dayEventsElement));
 }
 
 /**
@@ -113,6 +118,7 @@ function addEventToCalender(event, eventsElement) {
     eventElement.className = "event";
     eventElement.textContent = event.title;
     eventElement.dataset.urgent = event.urgent;
+    eventElement.dataset.allDay = event.allDay === true;
     eventElement.style.setProperty("--event-color", event.color);
 
     eventsElement.appendChild(eventElement);
@@ -135,15 +141,22 @@ function newEvent(form) {
     const newEvent = {
         title: formData.get("title") || "Untitled",
         description: formData.get("description"),
-        startTime: parseInt(
-            formData.get("start__time") || `${currentDate.hh}${currentDate.mm}`
-        ),
-        endTime: parseInt(
-            formData.get("end__time") || `${currentDate.hh}${currentDate.mm}`
-        ),
+        startTime: undefined,
+        endTime: undefined,
         urgent: formData.get("urgent") === "on",
+        allDay: formData.get("all__day") === "on",
         color: formData.get("color"),
     };
+
+    if (!newEvent.allDay) {
+        newEvent.startTime = parseInt(
+            formData.get("start__time") || `${currentDate.hh}${currentDate.mm}`
+        );
+
+        newEvent.endTime = parseInt(
+            formData.get("end__time") || `${currentDate.hh}${currentDate.mm}`
+        );
+    }
 
     const [newEventYear, newEventMonth, newEventDate] = newEventDay
         .split("-")
