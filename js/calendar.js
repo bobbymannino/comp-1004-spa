@@ -56,6 +56,14 @@ async function loadCalendar(jsonFile) {
 }
 
 /**
+ * Function to reset the banner
+ */
+function resetBanner() {
+    const banner = document.querySelector("header[role='banner']");
+    banner.querySelector("ol").innerHTML = "";
+}
+
+/**
  * Loads the banner element and sets it right
  */
 function loadBanner() {
@@ -94,6 +102,7 @@ function loadBanner() {
  * title: string,
  * color: string,
  * description: string,
+ * id: string,
  * } & ({ allDay: true } | { startTime: number, endTime: number })} CalendarEvent
  */
 
@@ -196,6 +205,10 @@ function addEventToCalender(event, eventsElement) {
         eventElement.dataset.open =
             eventElement.dataset.open === "true" ? false : true;
     });
+
+    eventElement.addEventListener("dblclick", () => {
+        openEditEventModal(event);
+    });
 }
 
 /**
@@ -213,6 +226,7 @@ function newEvent(form) {
      * @type {CalendarEvent}
      */
     const newEvent = {
+        id: crypto.randomUUID(),
         title: formData.get("title") || "Untitled",
         description: formData.get("description"),
         startTime: undefined,
@@ -273,12 +287,3 @@ function openModal(modal) {
 function closeModal(modal) {
     document.querySelector(`.modal.${modal}`).classList.add("hidden");
 }
-
-// function exportCalendar() {
-//   const updatedData = JSON.stringify(newCalendar);
-//   const file = new Blob([updatedData], { type: "application/json" });
-//   const a = document.createElement("a");
-//   a.href = URL.createObjectURL(file);
-//   a.download = "data.json";
-//   a.click();
-// }

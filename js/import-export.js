@@ -27,12 +27,13 @@ importCalenderInput.addEventListener("input", (e) => {
 
     const reader = new FileReader();
 
-    reader.onload = () => {
+    reader.onload = async () => {
         try {
             const json = JSON.parse(reader.result);
             calendarData = json;
             resetCalendar();
-            loadCalendar(json);
+            resetBanner();
+            await loadCalendar(json);
         } catch {
             alert("Invalid file");
         }

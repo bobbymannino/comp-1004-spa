@@ -93,5 +93,42 @@
                 </form>
             </div>
         </div>
+        <div class="modal hidden edit__event">
+            <div class="container">
+                <h2 class="modal__title">Edit Event</h2>
+                <form onsubmit="event.preventDefault(); editEvent(this)">
+                    <h3>Date</h3>
+                    <input type="date" name="date" />
+                    <h3>All Day</h3>
+                    <p>If selected start time and end time will be ignored</p>
+                    <input type="checkbox" name="all__day" />
+                    <h3>Start Time</h3>
+                    <input type="time" name="start__time" />
+                    <h3>End Time</h3>
+                    <input type="time" name="end__time" />
+                    <h3>Title</h3>
+                    <input type="text" name="title" />
+                    <h3>Description</h3>
+                    <textarea name="description"></textarea>
+                    <h3>Color</h3>
+                    <input type="color" name="color" />
+                    <h3>Urgent</h3>
+                    <input type="checkbox" name="urgent" />
+                    <button>Add</button>
+                    <button
+                        onclick="event.preventDefault(); closeModal('edit__event')"
+                        class="secondary"
+                    >
+                        Close
+                    </button>
+                    <button
+                        onclick="event.preventDefault(); deleteEvent(this)"
+                        class="secondary"
+                    >
+                        Delete Event
+                    </button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

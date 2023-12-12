@@ -310,6 +310,7 @@ main .container .calendar {
 
                 .description {
                     display: none;
+                    opacity: 0.75;
                 }
 
                 &[data-open="true"] {
