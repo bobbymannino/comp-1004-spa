@@ -8,8 +8,8 @@
 - - [Design V1](/evidence/designs/v1.pdf)
 - [x] What will each button do and lead to? (Reactivity) ([Evidence](/evidence/wireframe.pdf))
 - [x] Put it into [Figma](https://www.figma.com/) and make it look pretty ([Evidence](https://www.figma.com/file/sPKQip1mWrJ3XvDKuGpyz6/COMP1004-First-Coursework-SPA-Design?type=design&node-id=0%3A1&mode=design&t=371mMZCrtjVHCYNS-1))
-- [ ] Start coding it up (Componentize it as much as you can for reusability)
-- [ ] Test it yourself and get others to test it too
-- [ ] Fix any bugs that come up and refactor
+- [x] Start coding it up (Componentize it as much as you can for reusability)
+- [x] Test it yourself and get others to test it too
+- [x] Fix any bugs that come up and refactor
 
 [Caravan Board](https://github.com/users/bobbymannino/projects/1)
