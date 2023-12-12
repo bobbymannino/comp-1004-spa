@@ -28,7 +28,6 @@ importCalenderInput.addEventListener("input", (e) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-        console.log(reader.result);
         try {
             const json = JSON.parse(reader.result);
             calendarData = json;
