@@ -11,9 +11,17 @@ const calendarElement = document.querySelector(".calendar");
 let calendarData = {};
 
 /**
+ * Resets the calender
+ */
+function resetCalendar() {
+    calendarElement.innerHTML = "";
+}
+
+/**
+ * @param {Object | undefined} jsonFile - The json object
  * Loads the calendar and calendar data.
  */
-async function loadCalendar() {
+async function loadCalendar(jsonFile) {
     /** The amount of days in the current month */
     const daysInMonth = new Date(
         currentDate.yyyy,
@@ -42,7 +50,7 @@ async function loadCalendar() {
         calendarElement.appendChild(day);
     }
 
-    await loadCalendarData();
+    await loadCalendarData(jsonFile);
 
     loadBanner();
 }
@@ -111,13 +119,18 @@ function loadBanner() {
 
 /**
  * Loads the calendar data from a JSON file.
+ * @param {Object | undefined} jsonFile - The path to the JSON file.
  * @returns {Promise<void>} - A promise that resolves when the calendar data is loaded.
  */
-async function loadCalendarData() {
-    const response = await fetch("../data/calendar.json");
-    if (!response.ok) return alert("Failed to load calendar data");
+async function loadCalendarData(jsonFile) {
+    if (jsonFile) {
+        calendarData = jsonFile;
+    } else {
+        const response = await fetch("../data/calendar.json");
+        if (!response.ok) return alert("Failed to load calendar data");
 
-    calendarData = await response.json();
+        calendarData = await response.json();
+    }
 
     const thisMonthsData =
         calendarData[currentDate.yyyy][currentDate["month-num"]];

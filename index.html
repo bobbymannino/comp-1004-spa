@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="js/replace-with.js" defer></script>
         <script src="js/calendar.js" defer></script>
+        <script src="js/import-export.js" defer></script>
         <script src="js/app.js" defer></script>
         <title>Calendar</title>
     </head>
@@ -26,12 +27,26 @@
                     </div>
                 </div>
                 <div>
-                    <button aria-label="Export event" title="Export event">
+                    <button
+                        aria-label="Export calender"
+                        title="Export calender"
+                        onclick="exportCalender()"
+                    >
                         &uparrow;
                     </button>
-                    <button aria-label="Import event" title="Import event">
+                    <button
+                        aria-label="Import calender"
+                        title="Import calender"
+                        onclick="importCalender()"
+                    >
                         &downarrow;
                     </button>
+                    <input
+                        type="file"
+                        name="import__calender__file"
+                        accept="application/json"
+                        style="display: none"
+                    />
                     <button
                         aria-label="New event"
                         title="New event"
