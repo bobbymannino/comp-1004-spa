@@ -27,33 +27,10 @@
                     </div>
                 </div>
                 <div>
-                    <button
-                        aria-label="Export calender"
-                        title="Export calender"
-                        onclick="exportCalender()"
-                    >
-                        &uparrow;
-                    </button>
-                    <button
-                        aria-label="Import calender"
-                        title="Import calender"
-                        onclick="importCalender()"
-                    >
-                        &downarrow;
-                    </button>
-                    <input
-                        type="file"
-                        name="import__calender__file"
-                        accept="application/json"
-                        style="display: none"
-                    />
-                    <button
-                        aria-label="New event"
-                        title="New event"
-                        onclick="openModal('new__event')"
-                    >
-                        &plus;
-                    </button>
+                    <button aria-label="Export calender" title="Export calender" onclick="exportCalender()">&uparrow;</button>
+                    <button aria-label="Import calender" title="Import calender" onclick="importCalender()">&downarrow;</button>
+                    <input type="file" name="import__calender__file" accept="application/json" style="display: none" />
+                    <button aria-label="New event" title="New event" onclick="openModal('new__event')">&plus;</button>
                 </div>
             </div>
         </header>
@@ -84,12 +61,7 @@
                     <h3>Urgent</h3>
                     <input type="checkbox" name="urgent" />
                     <button>Add</button>
-                    <button
-                        onclick="event.preventDefault(); closeModal('new__event')"
-                        class="secondary"
-                    >
-                        Close
-                    </button>
+                    <button onclick="event.preventDefault(); closeModal('new__event')" class="secondary">Close</button>
                 </form>
             </div>
         </div>
@@ -97,6 +69,7 @@
             <div class="container">
                 <h2 class="modal__title">Edit Event</h2>
                 <form onsubmit="event.preventDefault(); editEvent(this)">
+                    <input type="hidden" name="id" />
                     <h3>Date</h3>
                     <input type="date" name="date" />
                     <h3>All Day</h3>
@@ -114,19 +87,9 @@
                     <input type="color" name="color" />
                     <h3>Urgent</h3>
                     <input type="checkbox" name="urgent" />
-                    <button>Add</button>
-                    <button
-                        onclick="event.preventDefault(); closeModal('edit__event')"
-                        class="secondary"
-                    >
-                        Close
-                    </button>
-                    <button
-                        onclick="event.preventDefault(); deleteEvent(this)"
-                        class="secondary"
-                    >
-                        Delete Event
-                    </button>
+                    <button>Save</button>
+                    <button onclick="event.preventDefault(); closeModal('edit__event')" class="secondary">Close</button>
+                    <button onclick="event.preventDefault(); deleteEvent(this)" class="secondary">Delete Event</button>
                 </form>
             </div>
         </div>
