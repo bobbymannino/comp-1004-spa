@@ -196,7 +196,7 @@ header:nth-child(2) {
         justify-content: space-between;
         align-items: center;
 
-        & div:nth-child(1) {
+        & > div:nth-child(1) > div {
             display: flex;
             align-items: center;
             gap: 0.25rem;
