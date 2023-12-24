@@ -1,31 +1,14 @@
 {
     "2023": {
         "12": {
-            "10": [
+            "24": [
                 {
-                    "title": "Wills birthday",
+                    "title": "Christmas Eve",
                     "allDay": true,
-                    "description": "Chinese on tuesday",
-                    "urgent": false,
-                    "color": "#ff0000",
-                    "id": "fdagdajj"
-                }
-            ],
-            "12": [
-                {
-                    "title": "Chinese with fam",
                     "description": "",
-                    "urgent": true,
-                    "color": "#000",
-                    "id": "1259530-13513jk",
-                    "startTime": {
-                        "hour": 15,
-                        "minute": 0
-                    },
-                    "endTime": {
-                        "hour": 21,
-                        "minute": 0
-                    }
+                    "urgent": false,
+                    "color": "#000000",
+                    "id": "xxxxx-yyyyy-zzzzz"
                 }
             ]
         }

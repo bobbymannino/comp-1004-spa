@@ -79,7 +79,10 @@ function loadBanner() {
 
         const eventTitle = document.createElement("p");
         eventTitle.className = "title";
-        eventTitle.textContent = event.title;
+        const eventSuffix = event.allDay
+            ? "All Day"
+            : `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
+        eventTitle.textContent = `${event.title} (${eventSuffix})`;
 
         eventElement.appendChild(eventTitle);
 
