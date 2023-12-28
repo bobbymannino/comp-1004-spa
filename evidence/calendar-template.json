@@ -1,0 +1,31 @@
+{
+    "2023": {
+        "12": {
+            "25": [
+                {
+                    "title": "Christmas Eve",
+                    "allDay": true,
+                    "description": "It's christmas baby!!!",
+                    "urgent": true,
+                    "color": "#000000",
+                    "id": "xxxxx-yyyyy-zzzzz"
+                },
+                {
+                    "title": "Xmas Eve Dinner",
+                    "startTime": {
+                        "hour": 16,
+                        "minute": 30
+                    },
+                    "endTime": {
+                        "hour": 18,
+                        "minute": 0
+                    },
+                    "description": "Having dinner with the fam",
+                    "urgent": false,
+                    "color": "#000000",
+                    "id": "yyyyy-xxxxx-zzzzz"
+                }
+            ]
+        }
+    }
+}
