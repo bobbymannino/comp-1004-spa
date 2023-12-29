@@ -1,14 +1,49 @@
 {
     "2023": {
         "12": {
+            "10": [
+                {
+                    "title": "Will's Birthday",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff4444",
+                    "id": "xxxxx-zzzzz-yyyyy"
+                }
+            ],
             "24": [
                 {
                     "title": "Christmas Eve",
                     "allDay": true,
                     "description": "",
                     "urgent": false,
-                    "color": "#000000",
+                    "color": "#444444",
                     "id": "xxxxx-yyyyy-zzzzz"
+                }
+            ],
+            "25": [
+                {
+                    "title": "Christmas Day",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff11ff",
+                    "id": "yyyyy-xxxxx-zzzzz"
+                },
+                {
+                    "title": "Christmas Day Dinner",
+                    "startTime": {
+                        "hour": 18,
+                        "minute": 0
+                    },
+                    "endTime": {
+                        "hour": 20,
+                        "minute": 0
+                    },
+                    "description": "",
+                    "urgent": false,
+                    "color": "#000000",
+                    "id": "zzzzz-xxxxx-yyyyy"
                 }
             ]
         }
