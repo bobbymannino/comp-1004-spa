@@ -1,0 +1,72 @@
+{
+    "2024": {
+        "1": {
+            "7": [
+                {
+                    "title": "Cinema",
+                    "startTime": {
+                        "hour": 18,
+                        "minute": 0
+                    },
+                    "id": "12345",
+                    "endTime": {
+                        "hour": 20,
+                        "minute": 0
+                    },
+                    "urgent": false,
+                    "color": "#000000",
+                    "description": "Cinema to watch a movie"
+                }
+            ]
+        }
+    },
+    "2023": {
+        "12": {
+            "10": [
+                {
+                    "title": "Will's Birthday",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff4444",
+                    "id": "xxxxx-zzzzz-yyyyy"
+                }
+            ],
+            "24": [
+                {
+                    "title": "Christmas Eve",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#444444",
+                    "id": "xxxxx-yyyyy-zzzzz"
+                }
+            ],
+            "25": [
+                {
+                    "title": "Christmas Day",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff11ff",
+                    "id": "yyyyy-xxxxx-zzzzz"
+                },
+                {
+                    "title": "Christmas Day Dinner",
+                    "startTime": {
+                        "hour": 18,
+                        "minute": 0
+                    },
+                    "endTime": {
+                        "hour": 20,
+                        "minute": 0
+                    },
+                    "description": "",
+                    "urgent": false,
+                    "color": "#000000",
+                    "id": "zzzzz-xxxxx-yyyyy"
+                }
+            ]
+        }
+    }
+}
