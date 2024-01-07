@@ -65,6 +65,8 @@ function resetBanner() {
 function loadBanner() {
     const todaysEvents = checkForEvents(currentDate.yyyy, parseInt(currentDate["month-num"]), parseInt(currentDate.dd));
 
+    console.log(todaysEvents);
+
     const banner = document.querySelector("header[role='banner']");
     banner.dataset.hidden = todaysEvents.length === 0;
 
@@ -136,7 +138,7 @@ async function loadCalendarData(jsonFile) {
         calendarData = await response.json();
     }
 
-    const thisMonthsData = calendarData[currentDate.yyyy][currentDate["month-num"]];
+    const thisMonthsData = calendarData[currentDate.yyyy]?.[currentDate["month-num"]] || [];
 
     Object.keys(thisMonthsData).forEach((date) => {
         addEventsToDay(date, thisMonthsData[date]);
@@ -180,7 +182,7 @@ function getTime(event) {
  * @returns {Day} - An array of events for that day
  */
 function checkForEvents(year, month, date) {
-    return calendarData[year][month][date] || [];
+    return calendarData[year]?.[month]?.[date] || [];
 }
 
 /**
