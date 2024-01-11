@@ -203,7 +203,10 @@ function addEventToCalender(event, eventsElement) {
 
     const eventDescription = document.createElement("small");
     eventDescription.className = "description";
-    eventDescription.textContent = event.description;
+    const startTime = `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
+    const endTime = `${padWithZero(event.endTime.hour, 2)}:${padWithZero(event.endTime.minute, 2)}`;
+    if (event.startTime) eventDescription.textContent = `${startTime} - ${endTime} • `;
+    eventDescription.textContent += event.description || "No description";
 
     eventElement.appendChild(eventTitle);
     eventElement.appendChild(eventDescription);
@@ -338,12 +341,13 @@ function editEvent(form) {
             startTimeH = parseInt(formData.get("start__time").slice(0, 2));
             startTimeM = parseInt(formData.get("start__time").slice(3, 5));
 
-            endTimeH = parseInt(formData.get("endTime").slice(0, 2));
-            endTimeM = parseInt(formData.get("endTime").slice(3, 5));
+            endTimeH = parseInt(formData.get("end__time").slice(0, 2));
+            endTimeM = parseInt(formData.get("end__time").slice(3, 5));
         } catch {}
 
         newEvent.startTime = { hour: startTimeH, minute: startTimeM };
         newEvent.endTime = { hour: endTimeH, minute: endTimeM };
+        newEvent.allDay = undefined;
     }
 
     const [newEventYear, newEventMonth, newEventDate] = newEventDay.split("-").map((x) => parseInt(x));
