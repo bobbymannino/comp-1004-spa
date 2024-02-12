@@ -91,34 +91,19 @@ function loadBanner() {
 }
 
 /**
- * A single event
+ * A single calendar event
  * @typedef {{
- * urgent: boolean,
+ * id: string
+ * priority: 0 | 1 | 2 | 3,
  * title: string,
- * color: string,
  * description: string,
- * id: string,
- * } & ({ allDay: true } | { startTime: { hour: number, minute: number }, endTime: { hour: number, minute: number }})} CalendarEvent
+ * hue: number,
+ * }} CalendarEvent
  */
-
+// TODO here
 /**
- * A single day
- * @typedef {CalendarEvent[]} Day
- */
-
-/**
- * A single month
- * @typedef {{[date: string]: Day}} Month
- */
-
-/**
- * A single year
- * @typedef {{[month: string]: Month}} Year
- */
-
-/**
- * Represents the calendar data.
- * @typedef {{ [year: string]: Year }} Calendar
+ * Represents the entire calendar data.
+ * @typedef { CalendarEvent[] } CalendarData
  */
 
 /**
@@ -203,9 +188,11 @@ function addEventToCalender(event, eventsElement) {
 
     const eventDescription = document.createElement("small");
     eventDescription.className = "description";
-    const startTime = `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
-    const endTime = `${padWithZero(event.endTime.hour, 2)}:${padWithZero(event.endTime.minute, 2)}`;
-    if (event.startTime) eventDescription.textContent = `${startTime} - ${endTime} • `;
+    if (event.startTime) {
+        const startTime = `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
+        const endTime = `${padWithZero(event.endTime.hour, 2)}:${padWithZero(event.endTime.minute, 2)}`;
+        eventDescription.textContent = `${startTime} - ${endTime} • `;
+    }
     eventDescription.textContent += event.description || "No description";
 
     eventElement.appendChild(eventTitle);
@@ -270,7 +257,7 @@ function deleteEvent() {
             (event) => event.id !== eventId
         );
 
-        if (date.month == currentDate["month-num"] && date.year == currentDate.yyyy) {
+        if (date.month == Number(currentDate["month-num"]) && date.year == Number(currentDate.yyyy)) {
             const dayEventsElement = calendarElement.querySelector(`.day:nth-child(${date.date}) .events`);
             dayEventsElement.innerHTML = "";
             addEventsToDay(date.date, calendarData[date.year][date.month][date.date]);
@@ -439,11 +426,14 @@ function newEvent(form) {
 
     const [newEventYear, newEventMonth, newEventDate] = newEventDay.split("-").map((x) => parseInt(x));
 
-    // If day already exists then add it to day
-    if (calendarData[newEventYear][newEventMonth][newEventDate])
-        calendarData[newEventYear][newEventMonth][newEventDate].push(newEvent);
-    // Else create the day and add the event to it
-    else calendarData[newEventYear][newEventMonth][newEventDate] = [newEvent];
+    // If day already exists then add it to day otherwise create the day
+    if (calendarData[newEventYear]) {
+        if (calendarData[newEventYear][newEventMonth]) {
+            if (calendarData[newEventYear][newEventMonth][newEventDate])
+                calendarData[newEventYear][newEventMonth][newEventDate].push(newEvent);
+            else calendarData[newEventYear][newEventMonth][newEventDate] = [newEvent];
+        } else calendarData[newEventYear][newEventMonth] = { [newEventDate]: [newEvent] };
+    } else calendarData[newEventYear] = { [newEventMonth]: { [newEventDate]: [newEvent] } };
 
     // If event is in current month add it to calender
     if (newEventMonth == currentDate["month-num"] && newEventYear == currentDate.yyyy)

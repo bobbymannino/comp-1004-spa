@@ -10,6 +10,7 @@ function init() {
 // On the document load call the init function to set everything up
 document.addEventListener("DOMContentLoaded", init, { once: true });
 
+// On scroll if scrolled past the top add the data attribute to the body
 document.addEventListener("scroll", () => {
     document.body.dataset.scrolled = window.scrollY > 0;
 });

@@ -1,5 +1,27 @@
 {
     "2024": {
+        "2": {
+            "11": [
+                {
+                    "title": "Funny Day",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff4444",
+                    "id": "xxxxx-zzzzz-yyyyy-ppppp"
+                }
+            ],
+            "14": [
+                {
+                    "title": "Valentine's Day",
+                    "allDay": true,
+                    "description": "",
+                    "urgent": false,
+                    "color": "#ff4444",
+                    "id": "xxxxx-zzzzz-yyyyy-ppppp"
+                }
+            ]
+        },
         "1": {
             "7": [
                 {

@@ -1,4 +1,4 @@
-/** Because i dont like the time to be 12:13:3. It needs to have a 0 before the last 3 */
+/** Because i don't like the time to be 12:13:3. It needs to have a 0 before the last 3 */
 const padWithZeros = ["ss", "mm", "hh", "dd", "month-num"];
 
 /** The current date as normal and updated every second */

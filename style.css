@@ -28,7 +28,7 @@ h1 {
 
 h2 {
     font-weight: 900;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 h3 {
@@ -79,26 +79,43 @@ b {
     }
 }
 
+.text-primary {
+    color: hsl(var(--primary-hsl));
+}
+
 button {
-    padding: 0.5rem 0.75rem;
-    font-size: 1.1rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 1rem;
     border-radius: 1rem;
     border: none;
-    background-color: hsl(var(--primary-hsl));
-    color: hsl(0 0% 100%);
     font-weight: 700;
     cursor: pointer;
+    transition: scale 100ms ease-in-out;
 
-    &:hover {
-        background-color: hsl(var(--primary-h) var(--primary-s) 40%);
-    }
-
-    &.secondary {
-        background-color: hsl(0 0% 90%);
+    &.primary {
+        background-color: hsl(var(--primary-hsl) / 20%);
         color: hsl(var(--primary-hsl));
 
         &:hover {
-            background-color: hsl(0 0% 80%);
+            background-color: hsl(var(--primary-hsl) / 30%);
+        }
+    }
+
+    &.secondary {
+        background-color: hsl(0 0% 94%);
+        color: hsl(0 0% 40%);
+
+        &:hover {
+            background-color: hsl(0 0% 90%);
+        }
+    }
+
+    &.danger {
+        background-color: hsl(0 100% 92%);
+        color: hsl(0 100% 40%);
+
+        &:hover {
+            background-color: hsl(0 100% 89%);
         }
     }
 }
@@ -136,11 +153,12 @@ form {
 }
 
 .modal {
-    transition: opacity 150ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
     position: fixed;
     inset: 0;
     padding: 2rem;
-    background-color: hsl(0 0% 0% / 0.5);
+    background-color: hsl(0 0% 50% / 0.2);
+    backdrop-filter: blur(1px);
     overflow-y: auto;
 
     &.hidden {
@@ -148,21 +166,17 @@ form {
         pointer-events: none;
 
         & .container {
-            translate: 0 -1rem;
-            scale: 0.9;
+            translate: 0 1rem;
+            scale: 0.96;
         }
     }
 
     & .container {
-        transition: translate 150ms ease-in-out, scale 150ms ease-in-out;
+        transition: translate 125ms ease-in-out, scale 125ms ease-in-out;
         background: hsl(0 0% 100%);
         border-radius: 1rem;
         border: 1px solid hsl(0 0% 90%);
-        box-shadow: 0 0.5rem 1rem hsl(0 0% 0% / 0.2);
-
-        & .modal__title {
-            padding-bottom: 0.5rem;
-        }
+        box-shadow: 0 0.35rem 0.5rem hsl(0 0% 0% / 0.1);
     }
 }
 
@@ -171,7 +185,7 @@ body {
     background-color: hsl(0 0% 98%);
 }
 
-header:nth-child(2) {
+.main-header {
     background-color: hsl(0 0% 100%);
     border-bottom: 1px solid hsl(0 0% 90%);
     position: sticky;
@@ -181,7 +195,7 @@ header:nth-child(2) {
         content: "";
         position: absolute;
         inset: 0;
-        box-shadow: 0 0.5rem 1rem hsl(0 0% 90%);
+        box-shadow: 0 0.35rem 0.5rem hsl(0 0% 90% / 0.75);
         opacity: 0;
         transition: opacity 150ms ease-in-out;
         z-index: -1;
@@ -196,18 +210,14 @@ header:nth-child(2) {
         justify-content: space-between;
         align-items: center;
 
-        & > div:nth-child(1) > div {
+        & .date-time {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
 
-            & p:nth-child(2) {
-                color: hsl(var(--primary-hsl));
+            & div div {
+                display: flex;
+                gap: 0.5rem;
             }
-        }
-
-        & div:nth-child(2) button {
-            width: 3rem;
         }
     }
 }
@@ -225,10 +235,6 @@ header[role="banner"] {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
-
-        & h2 {
-            color: hsl(var(--primary-hsl));
-        }
 
         & ol {
             display: flex;
