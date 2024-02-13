@@ -1,111 +1,49 @@
 {
-    "2024": {
-        "2": {
-            "11": [
-                {
-                    "title": "Funny Day",
-                    "allDay": true,
-                    "description": "",
-                    "urgent": false,
-                    "color": "#ff4444",
-                    "id": "xxxxx-zzzzz-yyyyy-ppppp"
-                }
-            ],
-            "14": [
-                {
-                    "title": "Valentine's Day",
-                    "allDay": true,
-                    "description": "",
-                    "urgent": false,
-                    "color": "#ff4444",
-                    "id": "xxxxx-zzzzz-yyyyy-ppppp"
-                }
-            ]
+    "events": [
+        {
+            "title": "Funny Day",
+            "description": "",
+            "priority": 2,
+            "hue": 45,
+            "id": "xxxxx-zzzzz-yyyyy-ppppp",
+            "begin": "2024-02-13T12:00:00Z",
+            "end": "2024-02-13T13:00:00Z"
         },
-        "1": {
-            "7": [
-                {
-                    "title": "Cinema",
-                    "startTime": {
-                        "hour": 18,
-                        "minute": 0
-                    },
-                    "id": "12345",
-                    "endTime": {
-                        "hour": 20,
-                        "minute": 0
-                    },
-                    "urgent": false,
-                    "color": "#000000",
-                    "description": "Cinema to watch a movie"
-                }
-            ],
-            "11": [
-                {
-                    "title": "Aquaman and the Lost Kingdom",
-                    "startTime": {
-                        "hour": 18,
-                        "minute": 0
-                    },
-                    "endTime": {
-                        "hour": 20,
-                        "minute": 0
-                    },
-                    "description": "Jason mamoa",
-                    "urgent": false,
-                    "color": "#000000",
-                    "id": "123454624"
-                }
-            ]
+        {
+            "title": "My Birthday",
+            "description": "",
+            "priority": 3,
+            "hue": 0,
+            "id": "xdxxxx-zzzzz-yyyyy-ppppp",
+            "begin": "2024-01-28T00:00:00Z",
+            "end": "2024-01-29T00:00:00Z"
+        },
+        {
+            "title": "Dinner",
+            "description": "",
+            "priority": 0,
+            "hue": 100,
+            "id": "xxxyxx-zzzzz-yyyyy-ppppp",
+            "begin": "2024-02-13T16:00:00Z",
+            "end": "2024-02-13T17:00:00Z"
+        },
+        {
+            "title": "Lunch",
+            "description": "",
+            "priority": 0,
+            "hue": 100,
+            "id": "xxxyxx-zzzzz-yyyyxy-ppppp",
+            "begin": "2024-02-13T13:00:00Z",
+            "end": "2024-02-13T15:00:00Z"
+        },
+        {
+            "title": "Valentines Day",
+            "description": "",
+            "priority": 0,
+            "hue": 0,
+            "id": "xxxxxx-zzzzz-yyyyy-ppppp",
+            "begin": "2024-02-14T00:00:00Z",
+            "end": "2024-02-15T00:00:00Z"
         }
-    },
-    "2023": {
-        "12": {
-            "10": [
-                {
-                    "title": "Will's Birthday",
-                    "allDay": true,
-                    "description": "",
-                    "urgent": false,
-                    "color": "#ff4444",
-                    "id": "xxxxx-zzzzz-yyyyy"
-                }
-            ],
-            "24": [
-                {
-                    "title": "Christmas Eve",
-                    "allDay": true,
-                    "description": "",
-                    "urgent": false,
-                    "color": "#444444",
-                    "id": "xxxxx-yyyyy-zzzzz"
-                }
-            ],
-            "25": [
-                {
-                    "title": "Christmas Day",
-                    "allDay": true,
-                    "description": "",
-                    "urgent": false,
-                    "color": "#ff11ff",
-                    "id": "yyyyy-xxxxx-zzzzz"
-                },
-                {
-                    "title": "Christmas Day Dinner",
-                    "startTime": {
-                        "hour": 18,
-                        "minute": 0
-                    },
-                    "endTime": {
-                        "hour": 20,
-                        "minute": 0
-                    },
-                    "description": "",
-                    "urgent": false,
-                    "color": "#000000",
-                    "id": "zzzzz-xxxxx-yyyyy"
-                }
-            ]
-        }
-    }
+    ]
 }

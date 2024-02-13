@@ -4,8 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
+        <script src="js/current-date-time.js" defer></script>
         <script src="js/replace-with.js" defer></script>
         <script src="js/calendar.js" defer></script>
+        <script src="js/banner.js" defer></script>
         <script src="js/import-export.js" defer></script>
         <script src="js/app.js" defer></script>
         <title>Calendar</title>
@@ -14,20 +16,14 @@
         <header role="banner">
             <div class="container">
                 <h2 class="text-primary">Todays Events</h2>
-                <ol></ol>
+                <ol class="event-list"></ol>
             </div>
         </header>
         <header class="main-header">
             <div class="container">
-                <div class="date-time">
-                    <h1 data-replace-with="dd"></h1>
-                    <div>
-                        <div>
-                            <p data-replace-with="th"></p>
-                            <b data-replace-with="hh:mm:ss" class="text-primary"></b>
-                        </div>
-                        <p data-replace-with="month" class="text-primary"></p>
-                    </div>
+                <div>
+                    <h1 data-replace-with="date"></h1>
+                    <b data-replace-with="hour:minute:second" class="text-primary"></b>
                 </div>
                 <div>
                     <button aria-label="Export calender" class="secondary" title="Export calender" onclick="exportCalender()">
@@ -46,6 +42,30 @@
         <main>
             <div class="container">
                 <div class="calendar"></div>
+                <div class="date-picker">
+                    <select name="month" id="month">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select name="year" id="year">
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </div>
             </div>
         </main>
         <div class="modal hidden new__event">

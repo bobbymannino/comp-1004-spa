@@ -209,16 +209,6 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        & .date-time {
-            display: flex;
-            align-items: center;
-
-            & div div {
-                display: flex;
-                gap: 0.5rem;
-            }
-        }
     }
 }
 
@@ -226,7 +216,8 @@ header[role="banner"] {
     background-color: hsl(0 0% 100%);
     border-bottom: 1px solid hsl(0 0% 90%);
 
-    &[data-hidden="true"] {
+    /** If the list if empty do not show as there are no events today */
+    &:has(ol:empty) {
         display: none;
     }
 
@@ -235,108 +226,100 @@ header[role="banner"] {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
+    }
+}
 
-        & ol {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+ol.event-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 0.25rem;
 
-            & .event {
-                &[data-urgent="true"] {
-                    & .title:after {
-                        content: " (Urgent)";
-                    }
+    & .event {
+        --foreground-color: hsl(var(--hue) 100% 35%);
+        --background-color: hsl(var(--hue) 100% 95%);
 
-                    &[data-all-day="true"] {
-                        & .title:after {
-                            content: " (All Day)";
-                            font-size: 50%;
-                        }
+        padding: 0.33rem 0.67rem;
+        border-radius: 0.25rem;
+        background-color: var(--background-color);
+        color: var(--foreground-color);
+        border-left: 3px solid var(--foreground-color);
 
-                        &[data-urgent="true"] {
-                            & .title:after {
-                                content: " (All Day, Urgent)";
-                            }
-                        }
-                    }
-                }
+        &[data-priority="1"] {
+            & p:before {
+                content: "! ";
+            }
+        }
+
+        &[data-priority="2"] {
+            & p:before {
+                content: "!! ";
+            }
+        }
+
+        &[data-priority="3"] {
+            & p:before {
+                content: "!!! ";
             }
         }
     }
 }
 
-main .container .calendar {
-    display: grid;
-    border-radius: 1rem;
-    overflow: hidden;
-    gap: 1px;
-    border: 1px solid hsl(0 0% 90%);
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-    background-color: hsl(0 0% 100%);
-    background-color: hsl(0 0% 90%);
+main {
+    & .container {
+        & .calendar {
+            display: grid;
+            border-radius: 1rem;
+            overflow: hidden;
+            gap: 1px;
+            border: 1px solid hsl(0 0% 90%);
+            grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+            background-color: hsl(0 0% 100%);
+            background-color: hsl(0 0% 90%);
 
-    & .day {
-        background-color: white;
-        padding: 1rem;
-        min-height: 10rem;
+            & .day {
+                background-color: white;
+                padding: 1rem;
+                min-height: 10rem;
 
-        &[data-is-current-day="true"] .date {
-            color: hsl(var(--primary-hsl));
-        }
+                &[data-is-current-day="true"] .date {
+                    color: hsl(var(--primary-hsl));
+                }
 
-        & hr {
-            margin-block: 0.5rem;
-            border: none;
-            height: 1px;
-            background-color: hsl(0 0% 95%);
-        }
+                & hr {
+                    margin-block: 0.5rem;
+                    border: none;
+                    height: 1px;
+                    background-color: hsl(0 0% 95%);
+                }
 
-        & .events {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            list-style: none;
+                & .event-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    list-style: none;
 
-            &:empty:after {
-                content: "No events for this day";
-                font-size: 0.67rem;
-                color: hsl(0 0% 90%);
+                    &:empty:after {
+                        content: "No events for this day";
+                        font-size: 0.67rem;
+                        color: hsl(0 0% 90%);
+                    }
+                }
             }
+        }
 
-            & .event {
-                color: var(--event-color);
-                cursor: pointer;
+        & .date-picker {
+            padding-top: 1rem;
+            gap: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-                &[data-urgent="true"] {
-                    & .title:after {
-                        content: " (Urgent)";
-                        font-size: 50%;
-                    }
-                }
-
-                .description {
-                    display: none;
-                    opacity: 0.75;
-                }
-
-                &[data-open="true"] {
-                    .description {
-                        display: block;
-                    }
-                }
-
-                &[data-all-day="true"] {
-                    & .title:after {
-                        content: " (All Day)";
-                        font-size: 50%;
-                    }
-
-                    &[data-urgent="true"] {
-                        & .title:after {
-                            content: " (All Day, Urgent)";
-                        }
-                    }
-                }
+            & select {
+                border-radius: 1rem;
+                padding: 0.36rem 0.67rem;
+                background-color: #ffffff;
+                border: 1px solid hsl(0 0% 90%);
             }
         }
     }

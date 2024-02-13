@@ -23,6 +23,7 @@ function downloadFile(fileName, fileContents, fileType) {
 
 /** @type {HTMLInputElement} */
 const importCalenderInput = document.querySelector("input[type='file'][name='import__calender__file']");
+
 function importCalender() {
     importCalenderInput.click();
 }
@@ -37,10 +38,11 @@ importCalenderInput.addEventListener("input", (e) => {
     reader.onload = async () => {
         try {
             const json = JSON.parse(reader.result);
-            calendarData = json;
-            resetCalendar();
-            resetBanner();
-            await loadCalendar(json);
+
+            await loadCalendarData(json);
+
+            loadCalendarUI(currentDateTime.year, currentDateTime.month);
+            loadBannerUI();
         } catch {
             alert("Invalid file contents");
         }

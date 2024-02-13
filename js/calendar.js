@@ -5,207 +5,132 @@
 const calendarElement = document.querySelector(".calendar");
 
 /**
- * The calendar data
- * @type {Calendar}
+ * The calendar data. A list of all the events in the calendar
+ * @type {CalendarData}
  */
-let calendarData = {};
+let calendarData = [];
 
 /**
- * Resets the calender
+ * Loads the calendar UI to the current data. It uses calendarData to load the events and uses the entered date to load the correct month.
+ * @param {number} year - The year to load
+ * @param {number} month - The month to load
  */
-function resetCalendar() {
+async function loadCalendarUI(year, month) {
+    // Make sure the calendar is empty each time
     calendarElement.innerHTML = "";
-}
 
-/**
- * @param {Object | undefined} jsonFile - The json object
- * Loads the calendar and calendar data.
- */
-async function loadCalendar(jsonFile) {
     /** The amount of days in the current month */
-    const daysInMonth = new Date(currentDate.yyyy, currentDate["month-num"], 0).getDate();
+    const daysInMonth = new Date(year, month, 0).getDate();
 
     // Add each day to the calendar
     for (let date = 1; date <= daysInMonth; date++) {
         const day = document.createElement("div");
         day.className = "day";
-        day.dataset.isCurrentDay = date == currentDate.dd;
+        day.dataset.isCurrentDay = year == currentDateTime.year && month == currentDateTime.month && date == currentDateTime.date;
 
         const dateText = document.createElement("h3");
         dateText.className = "date";
-        dateText.textContent = date + nth(date);
+        dateText.textContent = date + nthOfDate(date);
 
         const hr = document.createElement("hr");
 
-        const events = document.createElement("ol");
-        events.className = "events";
+        const eventList = document.createElement("ol");
+        eventList.className = "event-list";
+
+        const events = sortEvents(findEvents(year, month, date));
+
+        events.forEach((event) => {
+            eventList.appendChild(createEventElement(event));
+        });
 
         day.appendChild(dateText);
         day.appendChild(hr);
-        day.appendChild(events);
+        day.appendChild(eventList);
+
         calendarElement.appendChild(day);
     }
-
-    await loadCalendarData(jsonFile);
-
-    loadBanner();
 }
 
 /**
- * Function to reset the banner
+ * Create an event element
+ * @param {CalendarEvent} event
  */
-function resetBanner() {
-    const banner = document.querySelector("header[role='banner']");
-    banner.querySelector("ol").innerHTML = "";
+function createEventElement(event) {
+    const eventContainer = document.createElement("li");
+    eventContainer.className = "event";
+    eventContainer.dataset.priority = event.priority;
+    eventContainer.style.setProperty("--hue", event.hue);
+
+    const eventTitle = document.createElement("p");
+    eventTitle.className = "title";
+    eventTitle.textContent = event.title;
+
+    eventContainer.appendChild(eventTitle);
+
+    return eventContainer;
 }
-
-/**
- * Loads the banner element and sets it right
- */
-function loadBanner() {
-    const todaysEvents = checkForEvents(currentDate.yyyy, Number(currentDate["month-num"]), Number(currentDate.dd));
-
-    const banner = document.querySelector("header[role='banner']");
-    banner.dataset.hidden = todaysEvents.length === 0;
-
-    const bannerList = banner.querySelector("ol");
-
-    todaysEvents.forEach((event) => {
-        const eventElement = document.createElement("div");
-        eventElement.className = "event";
-        eventElement.dataset.urgent = event.urgent;
-        eventElement.dataset.allDay = event.allDay === true;
-        eventElement.style.setProperty("--event-color", event.color);
-
-        const eventTitle = document.createElement("p");
-        eventTitle.className = "title";
-        const eventSuffix = event.allDay
-            ? "All Day"
-            : `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
-        eventTitle.textContent = `${event.title} (${eventSuffix})`;
-
-        eventElement.appendChild(eventTitle);
-
-        bannerList.appendChild(eventElement);
-    });
-}
-
-/**
- * A single calendar event
- * @typedef {{
- * id: string
- * priority: 0 | 1 | 2 | 3,
- * title: string,
- * description: string,
- * hue: number,
- * }} CalendarEvent
- */
-// TODO here
-/**
- * Represents the entire calendar data.
- * @typedef { CalendarEvent[] } CalendarData
- */
 
 /**
  * Loads the calendar data from a JSON file.
- * @param {Object | undefined} jsonFile - The path to the JSON file.
+ * @param {Object | undefined} json - The json data
  * @returns {Promise<void>} - A promise that resolves when the calendar data is loaded.
  */
-async function loadCalendarData(jsonFile) {
-    if (jsonFile) {
-        calendarData = jsonFile;
-    } else {
+async function loadCalendarData(json) {
+    if (json) calendarData = json;
+    else {
         const response = await fetch("../data/calendar.json");
         if (!response.ok) return alert("Failed to load calendar data");
 
         calendarData = await response.json();
     }
 
-    const thisMonthsData = calendarData[currentDate.yyyy]?.[Number(currentDate["month-num"])] || [];
-
-    Object.keys(thisMonthsData).forEach((date) => {
-        addEventsToDay(date, thisMonthsData[date]);
-    });
-}
-
-/**
- * Takes in a day and adds all the events to that day
- * @param {string} date - The date of the day
- * @param {Day} day - An array of events for that day
- */
-function addEventsToDay(date, day) {
-    const dayEventsElement = calendarElement.querySelector(`.day:nth-child(${date}) .events`);
-
-    day.sort((a, b) => {
-        if (a.allDay && b.allDay) return 0;
-        else if (a.allDay) return -1;
-        else if (b.allDay) return 1;
-        else return getTime(a).startTime - getTime(b).startTime;
-    }).forEach((event) => addEventToCalender(event, dayEventsElement));
-}
-
-/**
- * Returns the time for an event or "All day" if it is an all day event
- * @param {CalendarEvent} event
- */
-function getTime(event) {
-    if (event.allDay) return "All day";
-
-    const startTime = `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
-    const endTime = `${padWithZero(event.endTime.hour, 2)}:${padWithZero(event.endTime.minute, 2)}`;
-
-    return { startTime, endTime };
+    datePickerYear.value = currentDateTime.year;
+    datePickerMonth.value = currentDateTime.month;
 }
 
 /**
  * Check for events and return a list of events for that day
- * @param {string} year - The year to check for events e.g. 2004
- * @param {string} month - The month to check for events e.g. 12
- * @param {string} date - The date to check for events e.g. 1
- * @returns {Day} - An array of events for that day
+ * @param {string | undefined} year - The year to check for events e.g. 2004
+ * @param {string | undefined} month - The month to check for events e.g. 12
+ * @param {string | undefined} date - The date to check for events e.g. 1
+ * @param {string | undefined} id - The id of the event to check for e.g. 124-xcb-315
+ * @returns {CalendarEvent[]} - An array of events for that day
  */
-function checkForEvents(year, month, date) {
-    return calendarData[year]?.[month]?.[date] || [];
+function findEvents(year, month, date, id) {
+    const events = calendarData.events.filter((event) => {
+        const begin = new Date(event.begin);
+
+        if (id) return event.id === id;
+
+        if (year) {
+            if (month) {
+                if (date) {
+                    // Use triple === because its faster then double
+                    return begin.getFullYear() === year && begin.getMonth() + 1 === month && begin.getDate() === date;
+                }
+                return begin.getFullYear() === year && begin.getMonth() + 1 === month;
+            }
+            return begin.getFullYear() === year;
+        }
+
+        return true;
+    });
+
+    return events;
 }
 
 /**
- * Takes in an event and adds it to the calender.
- * @param {CalendarEvent} event - The event to add
- * @param {HTMLDivElement} eventElement - The day element to add the event to
+ * Sort events by date first, then by priority
+ * @param {CalendarEvent[]} events - The events to sort
  */
-function addEventToCalender(event, eventsElement) {
-    const eventElement = document.createElement("li");
-    eventElement.dataset.eventId = event.id;
-    eventElement.className = "event";
-    eventElement.dataset.urgent = event.urgent;
-    eventElement.dataset.allDay = event.allDay === true;
-    eventElement.style.setProperty("--event-color", event.color);
-    eventElement.title = "Toggle description";
+function sortEvents(events) {
+    return events.sort((a, b) => {
+        const aBegin = new Date(a.begin);
+        const bBegin = new Date(b.begin);
 
-    const eventTitle = document.createElement("p");
-    eventTitle.className = "title";
-    eventTitle.textContent = event.title;
+        if (aBegin.getTime() === bBegin.getTime()) return a.priority - b.priority;
 
-    const eventDescription = document.createElement("small");
-    eventDescription.className = "description";
-    if (event.startTime) {
-        const startTime = `${padWithZero(event.startTime.hour, 2)}:${padWithZero(event.startTime.minute, 2)}`;
-        const endTime = `${padWithZero(event.endTime.hour, 2)}:${padWithZero(event.endTime.minute, 2)}`;
-        eventDescription.textContent = `${startTime} - ${endTime} • `;
-    }
-    eventDescription.textContent += event.description || "No description";
-
-    eventElement.appendChild(eventTitle);
-    eventElement.appendChild(eventDescription);
-
-    eventsElement.appendChild(eventElement);
-
-    eventElement.addEventListener("click", () => {
-        eventElement.dataset.open = eventElement.dataset.open === "true" ? false : true;
-    });
-
-    eventElement.addEventListener("dblclick", () => {
-        openEditEventModal(event);
+        return aBegin.getTime() - bBegin.getTime();
     });
 }
 
@@ -268,31 +193,6 @@ function deleteEvent() {
 
     resetBanner();
     loadBanner();
-}
-
-/**
- * Finds and returns the event date with the given id
- * @param {string} eventId - The id of the event to find
- */
-function findDateOfEvent(eventId) {
-    for (const year in calendarData) {
-        for (const month in calendarData[year]) {
-            for (const date in calendarData[year][month]) {
-                for (const event of calendarData[year][month][date]) {
-                    if (event.id === eventId) return { year, month, date };
-                }
-            }
-        }
-    }
-}
-
-/**
- * A utility function to add the correct suffix to a number
- * @param {Number} number The number to pad
- * @param {Number} length The length to pad to
- */
-function padWithZero(number, length) {
-    return String(number).padStart(length, "0");
 }
 
 /**
@@ -365,22 +265,6 @@ function editEvent(form) {
  */
 function wipeDay(date) {
     document.querySelector(`.day:nth-child(${date}) .events`).innerHTML = "";
-}
-
-/**
- * Finds the event based on the event id
- * @param {string} eventId - The id of the event to find
- */
-function findEvent(eventId) {
-    for (const year in calendarData) {
-        for (const month in calendarData[year]) {
-            for (const date in calendarData[year][month]) {
-                for (const event of calendarData[year][month][date]) {
-                    if (event.id === eventId) return event;
-                }
-            }
-        }
-    }
 }
 
 /**
