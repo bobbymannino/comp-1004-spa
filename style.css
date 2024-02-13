@@ -257,8 +257,29 @@ body {
 
     & .container {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
+        gap: 1rem;
+
+        @media (width >= 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        & .date-time {
+            text-align: center;
+
+            @media (width >= 768px) {
+                text-align: left;
+            }
+        }
+
+        & .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
     }
 }
 
@@ -269,6 +290,14 @@ header[role="banner"] {
     /** If the list if empty do not show as there are no events today */
     &:has(ol:empty) {
         display: none;
+    }
+
+    h2 {
+        text-align: center;
+
+        @media (width >= 768px) {
+            text-align: left;
+        }
     }
 
     & .container {
@@ -365,8 +394,9 @@ main {
             justify-content: center;
 
             & select {
+                font-size: 1.1rem;
                 border-radius: 1rem;
-                padding: 0.36rem 0.67rem;
+                padding: 0.4rem 0.8rem;
                 background-color: #ffffff;
                 border: 1px solid hsl(0 0% 90%);
             }
