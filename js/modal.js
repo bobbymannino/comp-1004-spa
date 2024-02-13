@@ -72,6 +72,11 @@ function createCalendarEvent(form) {
     const formData = new FormData(form);
     const inputs = Object.fromEntries(formData.entries());
 
+    const beginDate = inputs["begin-date"] || new Date().toISOString().split("T")[0];
+    const beginTime = inputs["begin-time"] || "00:00";
+    const endDate = inputs["end-date"] || new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    const endTime = inputs["end-time"] || "00:00";
+
     /** @type {CalendarEvent} */
     const newEvent = {
         id: crypto.randomUUID(),
@@ -79,14 +84,8 @@ function createCalendarEvent(form) {
         description: inputs.description,
         hue: hexToHsl(inputs.color).hue,
         priority: Number(inputs.priority),
-        begin:
-            inputs["begin-date"] && inputs["begin-time"]
-                ? new Date(inputs["begin-date"] + " " + inputs["begin-time"])
-                : new Date(),
-        end:
-            inputs["end-date"] && inputs["end-time"]
-                ? new Date(inputs["end-date"] + " " + inputs["end-time"])
-                : new Date(new Date().getTime() + 1000 * 60 * 60),
+        begin: beginDate + "T" + beginTime,
+        end: endDate + "T" + endTime,
     };
 
     calendarData.events.push(newEvent);
