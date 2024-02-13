@@ -1,5 +1,5 @@
 /** @type {HTMLOListElement} */
-const bannerList = document.querySelector("header[role='banner'] ol");
+const bannerList = document.querySelector("[role='banner'] ol");
 
 /**
  * Loads the banner element with today's events

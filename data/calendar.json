@@ -1,6 +1,15 @@
 {
     "events": [
         {
+            "title": "Shrove Tuesday",
+            "description": "Pancake Day",
+            "priority": 1,
+            "hue": 0,
+            "id": "xxxxxx-zzzzz-yyyyy-pppffpp",
+            "begin": "2024-02-13T00:00:00Z",
+            "end": "2024-02-14T00:00:00Z"
+        },
+        {
             "title": "Valentines Day",
             "description": "",
             "priority": 0,

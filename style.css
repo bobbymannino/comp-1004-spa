@@ -210,6 +210,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 50;
 
     &.hidden {
         opacity: 0;
@@ -235,11 +236,12 @@ body {
     background-color: hsl(0 0% 98%);
 }
 
-.main-header {
+header {
     background-color: hsl(0 0% 100%);
     border-bottom: 1px solid hsl(0 0% 90%);
     position: sticky;
     top: 0;
+    z-index: 10;
 
     &:after {
         content: "";
@@ -249,13 +251,14 @@ body {
         opacity: 0;
         transition: opacity 150ms ease-in-out;
         z-index: -1;
+        /* TODO add a blur effect */
     }
 
     [data-scrolled="true"] &:after {
         opacity: 1;
     }
 
-    & .container {
+    & nav {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -281,34 +284,37 @@ body {
             gap: 0.5rem;
         }
     }
-}
 
-header[role="banner"] {
-    background-color: hsl(0 0% 100%);
-    border-bottom: 1px solid hsl(0 0% 90%);
+    & [role="banner"] {
+        /** If the list if empty do not show as there are no events today */
+        &:has(ol:empty) {
+            display: none;
+        }
 
-    /** If the list if empty do not show as there are no events today */
-    &:has(ol:empty) {
-        display: none;
-    }
+        h2 {
+            text-align: center;
+            padding-bottom: 0.5rem;
 
-    h2 {
-        text-align: center;
-
-        @media (width >= 768px) {
-            text-align: left;
+            @media (width >= 768px) {
+                text-align: left;
+            }
         }
     }
+}
 
-    & .container {
+.event-list-container {
+    container: event-list-container / inline-size;
+}
+
+@container event-list-container (width >= 640px) {
+    ol.event-list {
         display: grid;
-        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 ol.event-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     list-style: none;
     gap: 0.25rem;
 
@@ -343,6 +349,13 @@ ol.event-list {
     }
 }
 
+hr {
+    margin-block: 0.5rem;
+    border: none;
+    height: 1px;
+    background-color: hsl(0 0% 95%);
+}
+
 main {
     & .container {
         & .calendar {
@@ -362,13 +375,6 @@ main {
 
                 &[data-is-current-day="true"] .date {
                     color: hsl(var(--primary-hsl));
-                }
-
-                & hr {
-                    margin-block: 0.5rem;
-                    border: none;
-                    height: 1px;
-                    background-color: hsl(0 0% 95%);
                 }
 
                 & .event-list {

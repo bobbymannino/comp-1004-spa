@@ -14,30 +14,33 @@
         <title>Calendar</title>
     </head>
     <body>
-        <header role="banner">
+        <header>
             <div class="container">
-                <h2 class="text-primary">Todays Events</h2>
-                <ol class="event-list"></ol>
-            </div>
-        </header>
-        <header class="main-header">
-            <div class="container">
-                <div class="date-time">
-                    <h1 data-replace-with="date-nth" class="text-primary"></h1>
-                    <b data-replace-with="hour:minute:second"></b>
+                <div role="banner">
+                    <h2 class="text-primary">Todays Events</h2>
+                    <div class="event-list-container">
+                        <ol class="event-list"></ol>
+                    </div>
+                    <hr />
                 </div>
-                <div class="actions">
-                    <button aria-label="Export calender" class="secondary" title="Export calender" onclick="exportCalender()">
-                        Export
-                    </button>
-                    <button aria-label="Import calender" class="secondary" title="Import calender" onclick="importCalender()">
-                        Import
-                    </button>
-                    <input type="file" name="import__calender__file" accept="application/json" style="display: none" />
-                    <button aria-label="New event" title="New event" class="primary" onclick="openModal('create-event')">
-                        New Event
-                    </button>
-                </div>
+                <nav>
+                    <div class="date-time">
+                        <h1 data-replace-with="date-nth" class="text-primary"></h1>
+                        <b data-replace-with="hour:minute:second"></b>
+                    </div>
+                    <div class="actions">
+                        <button aria-label="Export calender" class="secondary" title="Export calender" onclick="exportCalender()">
+                            Export
+                        </button>
+                        <button aria-label="Import calender" class="secondary" title="Import calender" onclick="importCalender()">
+                            Import
+                        </button>
+                        <input type="file" name="import__calender__file" accept="application/json" style="display: none" />
+                        <button aria-label="New event" title="New event" class="primary" onclick="openModal('create-event')">
+                            New Event
+                        </button>
+                    </div>
+                </nav>
             </div>
         </header>
         <main>
