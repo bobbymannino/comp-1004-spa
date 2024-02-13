@@ -8,6 +8,11 @@ let date = new Date();
  */
 let currentDateTime = {
     /**
+     * Day of the month with nth
+     * @example 4th
+     */
+    "date-nth": date.getDate() + nthOfDate(date.getDate()),
+    /**
      * Day of the month
      * @example 04
      */
@@ -46,6 +51,7 @@ function updateDateTime() {
     date = new Date();
 
     currentDateTime = {
+        "date-nth": date.getDate() + nthOfDate(date.getDate()),
         date: date.getDate(),
         year: date.getFullYear(),
         month: date.getMonth() + 1,

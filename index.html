@@ -8,6 +8,7 @@
         <script src="js/replace-with.js" defer></script>
         <script src="js/calendar.js" defer></script>
         <script src="js/banner.js" defer></script>
+        <script src="js/modal.js" defer></script>
         <script src="js/import-export.js" defer></script>
         <script src="js/app.js" defer></script>
         <title>Calendar</title>
@@ -22,7 +23,7 @@
         <header class="main-header">
             <div class="container">
                 <div>
-                    <h1 data-replace-with="date"></h1>
+                    <h1 data-replace-with="date-nth"></h1>
                     <b data-replace-with="hour:minute:second" class="text-primary"></b>
                 </div>
                 <div>
@@ -33,7 +34,7 @@
                         Import
                     </button>
                     <input type="file" name="import__calender__file" accept="application/json" style="display: none" />
-                    <button aria-label="New event" title="New event" class="primary" onclick="openModal('new__event')">
+                    <button aria-label="New event" title="New event" class="primary" onclick="openModal('create-event')">
                         New Event
                     </button>
                 </div>
@@ -58,6 +59,8 @@
                         <option value="12">December</option>
                     </select>
                     <select name="year" id="year">
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
                         <option value="2020">2020</option>
                         <option value="2021">2021</option>
                         <option value="2022">2022</option>
@@ -68,55 +71,104 @@
                 </div>
             </div>
         </main>
-        <div class="modal hidden new__event">
+        <div class="modal hidden create-event">
             <div class="container">
-                <form onsubmit="event.preventDefault(); newEvent(this)">
-                    <h3>Date</h3>
-                    <input type="date" name="date" />
-                    <h3>All Day</h3>
-                    <p>If selected start time and end time will be ignored</p>
-                    <input type="checkbox" name="all__day" />
-                    <h3>Start Time</h3>
-                    <input type="time" name="start__time" />
-                    <h3>End Time</h3>
-                    <input type="time" name="end__time" />
-                    <h3>Title</h3>
-                    <input type="text" name="title" />
-                    <h3>Description</h3>
-                    <textarea name="description"></textarea>
-                    <h3>Color</h3>
-                    <input type="color" name="color" />
-                    <h3>Urgent</h3>
-                    <input type="checkbox" name="urgent" />
-                    <button class="primary">Add</button>
-                    <button onclick="event.preventDefault(); closeModal('new__event')" class="secondary">Close</button>
+                <form onsubmit="event.preventDefault(); createCalendarEvent(this); closeModal('create-event')">
+                    <div class="input-container">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" placeholder="Valentines Day" />
+                    </div>
+                    <div class="input-container">
+                        <label for="begin-date">Begins</label>
+                        <label for="begin-time" class="sr-only">Begins</label>
+                        <div class="grid-2-cols">
+                            <input type="date" name="begin-date" id="begin-date" />
+                            <input type="time" name="begin-time" id="begin-time" />
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="end-date">Ends</label>
+                        <label for="end-time" class="sr-only">Ends</label>
+                        <div class="grid-2-cols">
+                            <input type="date" name="end-date" id="end-date" />
+                            <input type="time" name="end-time" id="end-time" />
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description"></textarea>
+                    </div>
+                    <div class="input-container">
+                        <label for="color">Color</label>
+                        <input type="color" name="color" id="color" />
+                    </div>
+                    <div class="input-container">
+                        <label for="priority">Priority</label>
+                        <select name="priority" id="priority">
+                            <option value="0" selected>None</option>
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+                    <div class="button-container">
+                        <button class="primary">Add</button>
+                        <button onclick="event.preventDefault(); closeModal('create-event')" class="secondary">Close</button>
+                    </div>
                 </form>
             </div>
         </div>
-        <div class="modal hidden edit__event">
+        <div class="modal hidden update-event">
             <div class="container">
-                <form onsubmit="event.preventDefault(); editEvent(this)">
+                <form onsubmit="event.preventDefault(); updateCalendarEvent(this); closeModal('update-event')">
                     <input type="hidden" name="id" />
-                    <h3>Date</h3>
-                    <input type="date" name="date" />
-                    <h3>All Day</h3>
-                    <p>If selected start time and end time will be ignored</p>
-                    <input type="checkbox" name="all__day" />
-                    <h3>Start Time</h3>
-                    <input type="time" name="start__time" />
-                    <h3>End Time</h3>
-                    <input type="time" name="end__time" />
-                    <h3>Title</h3>
-                    <input type="text" name="title" />
-                    <h3>Description</h3>
-                    <textarea name="description"></textarea>
-                    <h3>Color</h3>
-                    <input type="color" name="color" />
-                    <h3>Urgent</h3>
-                    <input type="checkbox" name="urgent" />
-                    <button class="primary">Save</button>
-                    <button onclick="event.preventDefault(); closeModal('edit__event')" class="secondary">Close</button>
-                    <button onclick="event.preventDefault(); deleteEvent(this)" class="danger">Delete</button>
+                    <div class="input-container">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" placeholder="Valentines Day" />
+                    </div>
+                    <div class="input-container">
+                        <label for="begin-date">Begins</label>
+                        <label for="begin-time" class="sr-only">Begins</label>
+                        <div class="grid-2-cols">
+                            <input type="date" name="begin-date" id="begin-date" />
+                            <input type="time" name="begin-time" id="begin-time" />
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="end-date">Ends</label>
+                        <label for="end-time" class="sr-only">Ends</label>
+                        <div class="grid-2-cols">
+                            <input type="date" name="end-date" id="end-date" />
+                            <input type="time" name="end-time" id="end-time" />
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description"></textarea>
+                    </div>
+                    <div class="input-container">
+                        <label for="color">Color</label>
+                        <input type="color" name="color" id="color" />
+                    </div>
+                    <div class="input-container">
+                        <label for="priority">Priority</label>
+                        <select name="priority" id="priority">
+                            <option value="0" selected>None</option>
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+                    <div class="button-container">
+                        <button class="primary">Save</button>
+                        <button onclick="event.preventDefault(); closeModal('update-event')" class="secondary">Close</button>
+                        <button
+                            onclick="event.preventDefault(); deleteCalendarEvent(this); closeModal('update-event')"
+                            class="danger"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
