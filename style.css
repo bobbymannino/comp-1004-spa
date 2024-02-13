@@ -241,21 +241,25 @@ header {
     border-bottom: 1px solid hsl(0 0% 90%);
     position: sticky;
     top: 0;
+    isolation: isolate;
     z-index: 10;
 
     &:after {
         content: "";
         position: absolute;
-        inset: 0;
-        box-shadow: 0 0.35rem 0.5rem hsl(0 0% 90% / 0.75);
+        inset: 100% 0 -2rem 0;
         opacity: 0;
+        background-color: hsl(0 0% 96%);
+        backdrop-filter: blur(2rem);
+        mask: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsla(0 0% 0% / 0) 100%);
         transition: opacity 150ms ease-in-out;
-        z-index: -1;
-        /* TODO add a blur effect */
+        z-index: 1;
     }
 
-    [data-scrolled="true"] &:after {
-        opacity: 1;
+    [data-scrolled="true"] & {
+        &:after {
+            opacity: 1;
+        }
     }
 
     & nav {
