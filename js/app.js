@@ -2,12 +2,20 @@
 const datePickerYear = document.querySelector(".date-picker select[name='year']");
 /** @type {HTMLSelectElement} */
 const datePickerMonth = document.querySelector(".date-picker select[name='month']");
+/** @type {HTMLButtonElement} */
+const goToCurrentDateButton = document.querySelector('header button[data-replace-with="month-text year"]');
 
-datePickerMonth.addEventListener("change", () => {
-    loadCalendarUI(Number(datePickerYear.value), Number(datePickerMonth.value));
-});
-datePickerYear.addEventListener("change", () => {
-    loadCalendarUI(Number(datePickerYear.value), Number(datePickerMonth.value));
+[datePickerMonth, datePickerYear].forEach((picker) => {
+    picker.addEventListener("change", () => {
+        const selectedYear = Number(datePickerYear.value);
+        const selectedMonth = Number(datePickerMonth.value);
+
+        loadCalendarUI(selectedYear, selectedMonth);
+
+        if (selectedYear === currentDateTime.year && selectedMonth === currentDateTime.month)
+            goToCurrentDateButton.classList.add("hidden");
+        else goToCurrentDateButton.classList.remove("hidden");
+    });
 });
 
 // On the document load call the init function to set everything up

@@ -93,6 +93,10 @@ h3 {
     color: hsl(var(--primary-hsl));
 }
 
+.hidden {
+    display: none;
+}
+
 button {
     padding: 0.5rem 0.9rem;
     font-size: 1rem;
@@ -255,15 +259,21 @@ form {
     position: fixed;
     inset: 0;
     padding: 2rem;
-    background-color: hsl(0 0% 50% / 0.5);
     backdrop-filter: blur(2px);
     overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 50;
+    background-color: hsl(0 0% 50% / 0.5);
 
-    &.hidden {
+    @media (prefers-color-scheme: dark) {
+        & {
+            background-color: hsl(0 0% 0% / 0.5);
+        }
+    }
+
+    &[data-hidden="true"] {
         opacity: 0;
         pointer-events: none;
 

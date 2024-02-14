@@ -23,6 +23,11 @@ let currentDateTime = {
      */
     year: date.getFullYear(),
     /**
+     * The month in text format
+     * @example June
+     */
+    "month-text": date.toLocaleString("default", { month: "long" }),
+    /**
      * Month
      * @example 6
      */
@@ -54,6 +59,7 @@ function updateDateTime() {
         "date-nth": date.getDate() + nthOfDate(date.getDate()),
         date: date.getDate(),
         year: date.getFullYear(),
+        "month-text": date.toLocaleString("default", { month: "long" }),
         month: date.getMonth() + 1,
         second: date.getSeconds(),
         minute: date.getMinutes(),
@@ -77,4 +83,16 @@ function nthOfDate(date) {
         default:
             return "th";
     }
+}
+
+/**
+ * Sets the calendar view to the current year and month
+ */
+function goToCurrentDate() {
+    datePickerMonth.value = currentDateTime.month;
+    datePickerYear.value = currentDateTime.year;
+
+    loadCalendarUI(currentDateTime.year, currentDateTime.month);
+
+    goToCurrentDateButton.classList.add("hidden");
 }

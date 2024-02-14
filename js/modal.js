@@ -99,7 +99,7 @@ function createCalendarEvent(form) {
  * @param {string} modalClass - The modals class name specific to that one
  */
 function openModal(modalClass) {
-    document.querySelector(`.modal.${modalClass}`).classList.remove("hidden");
+    document.querySelector(`.modal.${modalClass}`).dataset.hidden = "false";
 }
 
 /**
@@ -107,7 +107,7 @@ function openModal(modalClass) {
  * @param {string} modalClass - The modals class name specific to that one
  */
 function closeModal(modalClass) {
-    document.querySelector(`.modal.${modalClass}`).classList.add("hidden");
+    document.querySelector(`.modal.${modalClass}`).dataset.hidden = "true";
 }
 
 /**

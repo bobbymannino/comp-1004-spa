@@ -25,10 +25,11 @@
                 </div>
                 <nav>
                     <div class="date-time">
-                        <h1 data-replace-with="date-nth" class="text-primary"></h1>
+                        <h2 data-replace-with="date-nth month-text" class="text-primary"></h2>
                         <p class="text-primary"><b data-replace-with="hour:minute:second"></b></p>
                     </div>
                     <div class="actions">
+                        <button data-replace-with="month-text year" class="secondary hidden" onclick="goToCurrentDate()"></button>
                         <button aria-label="Export calender" class="secondary" title="Export calender" onclick="exportCalender()">
                             Export
                         </button>
@@ -74,7 +75,7 @@
                 </div>
             </div>
         </main>
-        <div class="modal hidden create-event">
+        <div class="modal create-event" data-hidden="true">
             <div class="container">
                 <form onsubmit="event.preventDefault(); createCalendarEvent(this); closeModal('create-event')">
                     <div class="input-container">
@@ -121,7 +122,7 @@
                 </form>
             </div>
         </div>
-        <div class="modal hidden update-event">
+        <div class="modal update-event" data-hidden="true">
             <div class="container">
                 <form onsubmit="event.preventDefault(); updateCalendarEvent(this); closeModal('update-event')">
                     <input type="hidden" name="id" />
