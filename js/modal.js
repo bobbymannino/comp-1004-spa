@@ -88,7 +88,8 @@ function createCalendarEvent(form) {
         end: endDate + "T" + endTime,
     };
 
-    calendarData.events.push(newEvent);
+    // Needs to be this because of the proxy
+    calendarData.events = [...calendarData.events, newEvent];
 
     loadBannerUI();
     loadCalendarUI(Number(datePickerYear.value), Number(datePickerMonth.value));

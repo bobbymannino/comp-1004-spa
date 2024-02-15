@@ -8,7 +8,20 @@ const calendarElement = document.querySelector(".calendar");
  * The calendar data. A list of all the events in the calendar
  * @type {CalendarData}
  */
-let calendarData = [];
+let calendarData = new Proxy(
+    { events: [] },
+    // Runs every time a property is set
+    {
+        set: (obj, prop, val) => {
+            obj[prop] = val;
+
+            // Save the data to local storage
+            saveCalendarDataToLocalStorage(obj);
+
+            return true;
+        },
+    }
+);
 
 /**
  * Loads the calendar UI to the current data. It uses calendarData to load the events and uses the entered date to load the correct month.
@@ -88,18 +101,36 @@ function createEventElement(event) {
 }
 
 /**
+ * Fetches and returns the demo calendar data events
+ */
+async function getDemoCalendarDataEvents() {
+    const response = await fetch("../data/calendar.json");
+
+    /** @type {{ events: CalendarEvent[] }} */
+    const events = (await response.json()).events;
+
+    return events;
+}
+
+/**
  * Loads the calendar data from a JSON file.
- * @param {Object | undefined} json - The json data
+ * @param {{ [k: any]: any } | "localStorage" | undefined} json - The json data
  * @returns {Promise<void>} - A promise that resolves when the calendar data is loaded.
  */
 async function loadCalendarData(json) {
-    if (json) calendarData = json;
-    else {
-        const response = await fetch("../data/calendar.json");
-        if (!response.ok) return alert("Failed to load calendar data");
+    // Load from the demo file
+    if (!json) calendarData.events = await getDemoCalendarDataEvents();
+    // Try to load from localStorage
+    else if (json === "localStorage") {
+        const possibleCalendarData = getCalendarDataFromLocalStorage();
 
-        calendarData = await response.json();
+        // If the data exists, use it
+        if (possibleCalendarData) calendarData.events = possibleCalendarData.events;
+        // Else load from the demo file
+        else calendarData.events = await getDemoCalendarDataEvents();
     }
+    // Load from the provided json
+    else calendarData.events = json.events;
 
     datePickerYear.value = currentDateTime.year;
     datePickerMonth.value = currentDateTime.month;

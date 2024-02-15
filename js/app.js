@@ -39,8 +39,8 @@ async function init() {
         updateReplaceWith();
     }, 1e3);
 
-    // Load the calendar data
-    await loadCalendarData();
+    // Load the calendar data. As it is the first time, try from localStorage
+    await loadCalendarData("localStorage");
 
     // Load the calendar & banner UI
     loadCalendarUI(currentDateTime.year, currentDateTime.month);
