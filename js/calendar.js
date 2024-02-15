@@ -28,9 +28,15 @@ async function loadCalendarUI(year, month) {
         day.className = "day";
         day.dataset.isCurrentDay = year == currentDateTime.year && month == currentDateTime.month && date == currentDateTime.date;
 
+        const span = document.createElement("span");
+        span.className = "weekday";
+        // - 1 because months are zero indexed
+        span.textContent = new Date(year, month - 1, date).toLocaleString("en", { weekday: "long" });
+
         const dateText = document.createElement("h3");
         dateText.className = "date";
-        dateText.textContent = date + nthOfDate(date);
+        dateText.textContent = date + nthOfDate(date) + " ";
+        dateText.appendChild(span);
 
         const hr = document.createElement("hr");
 
