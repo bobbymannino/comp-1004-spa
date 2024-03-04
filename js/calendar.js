@@ -24,6 +24,25 @@ let calendarData = new Proxy(
 );
 
 /**
+ * Checks if there is any events that exist during a single event
+ * @param {CalendarEvent} event - The event to check if overlapping
+ * @returns {boolean} - If there are any events during the single event
+ */
+function isEventOverlapping(event) {
+    const eventStart = new Date(event.begin).getTime();
+    const eventEnd = new Date(event.end).getTime();
+
+    const overlappingEvents = calendarData.events.filter((e) => {
+        const begin = new Date(e.begin).getTime();
+        const end = new Date(e.end).getTime();
+
+        return eventStart < end && eventEnd > begin;
+    });
+
+    return overlappingEvents.length > 0;
+}
+
+/**
  * Loads the calendar UI to the current data. It uses calendarData to load the events and uses the entered date to load the correct month.
  * @param {number} year - The year to load
  * @param {number} month - The month to load

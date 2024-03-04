@@ -88,6 +88,8 @@ function createCalendarEvent(form) {
         end: endDate + "T" + endTime,
     };
 
+    if (isEventOverlapping(newEvent)) alert("Warning: Event overlaps with another event!");
+
     // Needs to be this because of the proxy
     calendarData.events = [...calendarData.events, newEvent];
 
