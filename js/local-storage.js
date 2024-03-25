@@ -21,44 +21,28 @@ function saveCalendarDataToLocalStorage(data) {
 }
 
 /**
- * Creates a local storage store with history that updates everytime is is changed and is recovered on load
+ * Creates a local storage store based off an object
  * @param {string} key The key for the local storage
- * @param {any} initialValue The initial value if no value is found in local storage 
- * @returns {typeof initialValue} A value with the same type of initial value
+ * @param {object} initialValue The initial value if no value is found in local storage
+ * @returns {object} A value with the same type of initial value
  */
 function createStore(key, initialValue) {
     let data = localStorage.getItem(key);
 
-    /** @type {Store} */
-    let store = { [(new Date()).getTime()]: initialValue };
+    if (data) data = JSON.parse(data);
+    else {
+        data = initialValue;
 
-    if (value) {
-        store = JSON.parse(data);
-    } else {
-        localStorage.setItem(key, JSON.stringify(store));
+        localStorage.setItem(key, JSON.stringify(data));
     }
 
-    return createProxy(store, (obj, prop, value) => {
-        localStorage.setItem(key,)
-    })
-}
+    return new Proxy(data, {
+        set: (target, prop, value) => {
+            target[prop] = value;
 
-/**
- * Creates a proxy and returns it
- * @param {object} initialValue The intial value
- * @param { (obj, prop, value) => {} } onSet A function to do everytime the variable is set
- * @returns {typeof initialValue}
- */
-function createProxy(intialValue, onSet) {
-    return new Proxy(initialValue,
-        {
-            set: (obj, prop, val) => {
-                obj[prop] = val;
+            localStorage.setItem(key, JSON.stringify(target));
 
-                onSet(obj, prop, value);
-
-                return true;
-            },
-        }
-    );
+            return true;
+        },
+    });
 }
