@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", init, { once: true });
 
 // On scroll if scrolled past the top add the data attribute to the body
 document.addEventListener("scroll", () => {
-    document.body.dataset.scrolled = window.scrollY > 0;
+    // 1rem = 16px
+    document.body.dataset.scrolled = window.scrollY > 16;
 });
 
 /**
