@@ -8,6 +8,7 @@ function loadUpdateEventModal(event) {
 
     form.querySelector("input[name='id']").value = event.id;
     form.querySelector("input[name='title']").value = event.title;
+    form.querySelector("textarea[name='description']").value = event.description;
     form.querySelector("input[name='color']").value = hslToHex(event.hue, 80, 60);
     form.querySelector("select[name='priority']").value = event.priority;
     form.querySelector("input[name='begin-date']").value = new Date(event.begin).toISOString().split("T")[0];
