@@ -15,8 +15,3 @@
  * Represents the entire calendar data.
  * @typedef {{ events: CalendarEvent[] }} CalendarData
  */
-
-/**
- * A local storage store that is dated
- * @typedef { { [k: number]: any } } Store
- */

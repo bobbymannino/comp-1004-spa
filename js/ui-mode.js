@@ -14,4 +14,6 @@ function changeUIMode() {
     const cleanUI = document.querySelector("#clean-ui-checkbox").checked;
 
     document.body.setAttribute("data-clean-ui", cleanUI);
+
+    localStorage.setItem("cleanUIMode", cleanUI);
 }

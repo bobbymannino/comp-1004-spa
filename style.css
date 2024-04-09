@@ -469,7 +469,7 @@ main {
             }
         }
 
-        & .date-picker {
+        & .options {
             padding-top: 1rem;
             gap: 1rem;
             display: flex;
