@@ -415,6 +415,17 @@ ol.event-list {
                 content: "!!! ";
             }
         }
+
+        body[data-clean-ui="true"] & {
+            border-left: 0;
+            border-radius: 0.55em;
+            font-size: 90%;
+            padding: 0.2rem 0.5rem;
+
+            & .description {
+                display: none;
+            }
+        }
     }
 }
 
