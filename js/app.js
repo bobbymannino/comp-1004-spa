@@ -1,7 +1,7 @@
 /** @type {HTMLSelectElement} */
-const datePickerYear = document.querySelector(".date-picker select[name='year']");
+const datePickerYear = document.querySelector(".options select[name='year']");
 /** @type {HTMLSelectElement} */
-const datePickerMonth = document.querySelector(".date-picker select[name='month']");
+const datePickerMonth = document.querySelector(".options select[name='month']");
 /** @type {HTMLButtonElement} */
 const goToCurrentDateButton = document.querySelector('header button[data-replace-with="month-text year"]');
 
