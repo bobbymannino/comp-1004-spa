@@ -122,6 +122,9 @@ function createRandomEvent() {
         () => randomWords[Math.floor(Math.random() * randomWords.length)]
     ).join(" ");
 
+    const begin = Date.now() - 5e9 + Math.floor(Math.random() * 10e9);
+    const end = begin + Math.floor(Math.random() * 4e6);
+
     /** @type {CalendarEvent} */
     return {
         description: lorem,
@@ -129,7 +132,7 @@ function createRandomEvent() {
         id: crypto.randomUUID(),
         hue: Math.floor(Math.random() * 360),
         priority: Math.floor(Math.random() * 4),
-        begin: new Date(Date.now() - 5e9 + Math.floor(Math.random() * 10e9)).toISOString(),
-        end: new Date(Date.now() - 5e9 + Math.floor(Math.random() * 10e9)).toISOString(),
+        begin: new Date(begin).toISOString(),
+        end: new Date(end).toISOString(),
     };
 }
