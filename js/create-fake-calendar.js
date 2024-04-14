@@ -111,6 +111,10 @@ function createFakeCalendar(amount) {
     calendarData.events = newEvents;
 }
 
+const monthInMs = 27e9;
+const dayInMs = 86e6;
+const hourInMs = 36e5;
+
 /**
  * Creates a random event and returns it.
  * Dated +- 1 month from creation time.
@@ -122,8 +126,11 @@ function createRandomEvent() {
         () => randomWords[Math.floor(Math.random() * randomWords.length)]
     ).join(" ");
 
-    const begin = Date.now() - 5e9 + Math.floor(Math.random() * 10e9);
-    const end = begin + Math.floor(Math.random() * 4e6);
+    const earliestPossible = Date.now() - monthInMs;
+    const latestPossible = earliestPossible + monthInMs * 2;
+
+    const begin = randomInt(earliestPossible, latestPossible);
+    const end = begin + randomInt(hourInMs, hourInMs * 3);
 
     /** @type {CalendarEvent} */
     return {
@@ -135,4 +142,14 @@ function createRandomEvent() {
         begin: new Date(begin).toISOString(),
         end: new Date(end).toISOString(),
     };
+}
+
+/**
+ * Gets a random int between 2 numbers
+ * @param {number} min
+ * @param {number} max
+ * @returns {number} A random number
+ */
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
