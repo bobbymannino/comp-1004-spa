@@ -476,7 +476,8 @@ main {
             align-items: center;
             justify-content: center;
 
-            & select {
+            & select,
+            & input {
                 font-size: 1.1rem;
                 border-radius: 1rem;
                 padding: 0.4rem 0.8rem;
