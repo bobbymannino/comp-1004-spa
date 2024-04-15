@@ -1,5 +1,5 @@
 /** @type {HTMLSelectElement} */
-const datePickerYear = document.querySelector(".options select[name='year']");
+const datePickerYear = document.querySelector(".options input[name='year']");
 /** @type {HTMLSelectElement} */
 const datePickerMonth = document.querySelector(".options select[name='month']");
 /** @type {HTMLButtonElement} */
