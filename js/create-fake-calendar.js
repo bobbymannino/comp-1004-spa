@@ -99,10 +99,16 @@ const randomWords = [
     "zephyr",
 ];
 
+const oneSecondInMs = 1e3;
+const oneMinuteInMs = oneSecondInMs * 60;
+const hourInMs = oneMinuteInMs * 60;
+const dayInMs = hourInMs * 24;
+const monthInMs = dayInMs * 30;
+
 /**
  * Given a number creates an amount of random events for the calendar.
  * It will be time bound to +- 1 month from creation time.
- * It will reset the current calendar so becareful with it.
+ * It will reset the current calendar so be careful with it.
  * @param {number} amount
  */
 function createFakeCalendar(amount) {
@@ -110,10 +116,6 @@ function createFakeCalendar(amount) {
 
     calendarData.events = newEvents;
 }
-
-const monthInMs = 26e9;
-const dayInMs = 86e6;
-const hourInMs = 36e5;
 
 /**
  * Creates a random event and returns it.
@@ -139,8 +141,8 @@ function createRandomEvent() {
         id: crypto.randomUUID(),
         hue: Math.floor(Math.random() * 360),
         priority: Math.floor(Math.random() * 4),
-        begin: new Date(begin).toISOString(),
-        end: new Date(end).toISOString(),
+        begin: new Date(begin),
+        end: new Date(end),
     };
 }
 
