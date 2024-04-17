@@ -111,7 +111,7 @@ function createFakeCalendar(amount) {
     calendarData.events = newEvents;
 }
 
-const monthInMs = 27e9;
+const monthInMs = 26e9;
 const dayInMs = 86e6;
 const hourInMs = 36e5;
 
@@ -127,7 +127,7 @@ function createRandomEvent() {
     ).join(" ");
 
     const earliestPossible = Date.now() - monthInMs;
-    const latestPossible = earliestPossible + monthInMs * 2;
+    const latestPossible = Date.now() + monthInMs;
 
     const begin = randomInt(earliestPossible, latestPossible);
     const end = begin + randomInt(hourInMs, hourInMs * 3);
