@@ -59,6 +59,17 @@ async function loadCalendarUI(year, month) {
         const day = document.createElement("div");
         day.className = "day";
         day.dataset.isCurrentDay = year == currentDateTime.year && month == currentDateTime.month && date == currentDateTime.date;
+        day.addEventListener("drop", (e) => handleDrop(e));
+        day.addEventListener("dragover", (e) => {
+            e.preventDefault();
+
+            day.dataset.draggingOver = true;
+        });
+        day.addEventListener("dragleave", (e) => {
+            e.preventDefault();
+
+            day.dataset.draggingOver = false;
+        });
 
         const span = document.createElement("span");
         span.className = "weekday";
@@ -95,7 +106,9 @@ async function loadCalendarUI(year, month) {
  */
 function createEventElement(event) {
     const eventContainer = document.createElement("li");
+    eventContainer.id = `event-${event.id}`;
     eventContainer.className = "event";
+    eventContainer.setAttribute("draggable", true);
     eventContainer.dataset.priority = event.priority;
     eventContainer.style.setProperty("--hue", event.hue);
 
@@ -116,7 +129,46 @@ function createEventElement(event) {
         openModal("update-event");
     });
 
+    eventContainer.addEventListener("dragstart", (e) => {
+        eventContainer.dataset.dragging = true;
+
+        e.dataTransfer.setData("text/plain", event.id);
+    });
+
+    eventContainer.addEventListener("dragend", (e) => {
+        eventContainer.dataset.dragging = false;
+    });
+
     return eventContainer;
+}
+
+/**
+ * Handles the drop of an event on a day
+ * @param {DragEvent} e - The drop event
+ */
+function handleDrop(e) {
+    e.preventDefault();
+
+    const newDayElement = e.target;
+
+    const newDate = [...calendarElement.children].findIndex((day) => day === newDayElement) + 1;
+
+    calendarData.events = calendarData.events.map((event) => {
+        if (event.id === e.dataTransfer.getData("text/plain")) {
+            const begin = new Date(event.begin);
+            begin.setDate(newDate);
+            event.begin = begin;
+
+            const end = new Date(event.end);
+            end.setDate(newDate);
+            event.end = end;
+        }
+
+        return event;
+    });
+
+    loadCalendarUI(Number(datePickerYear.value), Number(datePickerMonth.value));
+    loadBannerUI();
 }
 
 /**

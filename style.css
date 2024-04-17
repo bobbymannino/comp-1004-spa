@@ -398,6 +398,10 @@ ol.event-list {
         border-left: 3px solid var(--foreground-color);
         cursor: pointer;
 
+        &[data-dragging="true"] {
+            opacity: 0.34;
+        }
+
         &[data-priority="1"] {
             & b:before {
                 content: "! ";
@@ -447,6 +451,10 @@ main {
 
                 &[data-is-current-day="true"] .date {
                     color: hsl(var(--primary-hsl));
+                }
+
+                &[data-dragging-over="true"] {
+                    opacity: 0.34;
                 }
 
                 & .weekday {
