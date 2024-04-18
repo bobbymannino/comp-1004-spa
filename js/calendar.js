@@ -149,12 +149,17 @@ function createEventElement(event) {
 function handleDrop(e) {
     e.preventDefault();
 
-    const newDayElement = e.target;
+    const eventId = e.dataTransfer.getData("text/plain");
+
+    let newDayElement = e.target;
+    while (newDayElement.className != "day") {
+        newDayElement = newDayElement.parentElement;
+    }
 
     const newDate = [...calendarElement.children].findIndex((day) => day === newDayElement) + 1;
 
     calendarData.events = calendarData.events.map((event) => {
-        if (event.id === e.dataTransfer.getData("text/plain")) {
+        if (event.id === eventId) {
             const begin = new Date(event.begin);
             begin.setDate(newDate);
             event.begin = begin;
