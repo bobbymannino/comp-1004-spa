@@ -127,6 +127,31 @@
                 </form>
             </div>
         </div>
+        <div class="modal day-view" data-hidden="true">
+            <div class="container">
+                <h2 class="date"></h2>
+                <p class="count"></p>
+                <div class="info">
+                    <hr />
+                    <div class="times-and-events">
+                        <ol class="times">
+                            <p>00:00</p>
+                            <p>03:00</p>
+                            <p>06:00</p>
+                            <p>09:00</p>
+                            <p>12:00</p>
+                            <p>15:00</p>
+                            <p>18:00</p>
+                            <p>21:00</p>
+                            <p>00:00</p>
+                        </ol>
+                        <ol class="events"></ol>
+                    </div>
+                </div>
+                <hr />
+                <button class="secondary" onclick="closeModal('day-view')">Close</button>
+            </div>
+        </div>
         <div class="modal update-event" data-hidden="true">
             <div class="container">
                 <form onsubmit="event.preventDefault(); updateCalendarEvent(this); closeModal('update-event')">
