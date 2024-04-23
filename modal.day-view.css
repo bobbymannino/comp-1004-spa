@@ -26,19 +26,19 @@
         background-color: var(--surface-2);
         border: 1px solid var(--surface-0);
         border-radius: 1rem;
-        display: grid;
-        gap: 0.5rem;
-        padding: 0.5rem;
         grid-template-columns: repeat(var(--columns), 1fr);
+        position: relative;
 
         & .event {
             --foreground-color: hsl(var(--hue) 100% 35%);
             --background-color: hsl(var(--hue) 100% 95%);
 
-            @media (prefers-color-scheme: dark) {
-                --foreground-color: hsl(var(--hue) 100% 40%);
-                --background-color: hsl(var(--hue) 100% 10% / 0.75);
-            }
+            position: absolute;
+            left: var(--x, 0);
+            width: calc(100% / var(--columns));
+            top: var(--y);
+            height: var(--height);
+            min-height: 30px;
 
             padding: 0.33rem 0.67rem;
             border-radius: 0.25rem;
@@ -46,6 +46,11 @@
             color: var(--foreground-color);
             border-left: 3px solid var(--foreground-color);
             cursor: pointer;
+
+            @media (prefers-color-scheme: dark) {
+                --foreground-color: hsl(var(--hue) 100% 40%);
+                --background-color: hsl(var(--hue) 100% 10% / 0.75);
+            }
 
             &[data-priority="1"] {
                 &:before {

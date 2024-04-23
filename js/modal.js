@@ -267,14 +267,55 @@ function openAndLoadDayViewModal(year, month, date) {
         if (currentHighest > runningHighest) runningHighest = currentHighest;
     });
 
-    eventsList.style.setProperty("--columns", runningHighest + 1);
+    const columns = runningHighest + 1;
 
-    events.forEach((e) => {
+    eventsList.style.setProperty("--columns", columns);
+
+    /** Keep track of which column to add the next event too */
+    let currentColumn = 1;
+
+    function nextColumn() {
+        currentColumn++;
+        if (currentColumn > columns) currentColumn = 1;
+    }
+
+    sortEvents(events).forEach((e, i) => {
         const event = document.createElement("li");
         event.textContent = e.title;
         event.className = "event";
-        event.style.setProperty("--hue", e.hue);
         event.dataset.priority = e.priority;
+        event.style.setProperty("--hue", e.hue);
+
+        // 1440 minutes in a day
+        // Get start time of event
+        // per 14.4 minutes add 1%
+        const start = new Date(e.begin);
+        const startHours = start.getHours();
+        const totalMinutes = start.getMinutes() + startHours * 60;
+        console.log(totalMinutes / 14.4);
+        event.style.setProperty("--y", totalMinutes / 14.4 + "%");
+
+        // get duration of event in hours
+        const duration = (new Date(e.end) - new Date(e.begin)) / (1000 * 60 * 60);
+        event.style.setProperty("--height", (duration / 24) * 100 + "%");
+
+        // somehow figure out if the event is overlapping and if so by how many and set --x to % of that
+        // if it's not overlapping set --x to 0
+
+        /** Starting at 1 what column to be in */
+        const percent = (currentColumn - 1) / columns;
+        event.style.setProperty("--x", percent * 100 + "%");
+
+        if (events[i + 1] && areEventsOverlapping(e, events[i + 1])) nextColumn();
+        else currentColumn = 1;
+
+        event.addEventListener("dblclick", () => {
+            closeModal("day-view");
+
+            loadUpdateEventModal(e);
+
+            openModal("update-event");
+        });
 
         eventsList.appendChild(event);
     });
