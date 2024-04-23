@@ -29,17 +29,28 @@ let calendarData = new Proxy(
  * @returns {boolean} - If there are any events during the single event
  */
 function isEventOverlapping(event) {
-    const eventStart = new Date(event.begin).getTime();
-    const eventEnd = new Date(event.end).getTime();
+    const date = new Date(event.begin);
+    const daysEvents = findEvents(date.getFullYear(), date.getMonth() + 1, date.getDate());
 
-    const overlappingEvents = calendarData.events.filter((e) => {
-        const begin = new Date(e.begin).getTime();
-        const end = new Date(e.end).getTime();
+    return daysEvents.some((dayEvent) => areEventsOverlapping(event, dayEvent));
+}
 
-        return eventStart < end && eventEnd > begin;
-    });
+/**
+ * Checks wether 2 events are overlapping
+ * @param {CalendarEvent} event1 - The first event
+ * @param {CalendarEvent} event2 - The second event
+ * @returns {boolean}
+ */
+function areEventsOverlapping(event1, event2) {
+    const begin1 = new Date(event1.begin).getTime();
+    const begin2 = new Date(event2.begin).getTime();
 
-    return overlappingEvents.length > 0;
+    const end1 = new Date(event1.end).getTime();
+    const end2 = new Date(event2.end).getTime();
+
+    if (begin1 === begin2) return true;
+    if (begin1 < begin2) return begin2 < end1;
+    return begin1 < end2;
 }
 
 /**
@@ -59,12 +70,15 @@ async function loadCalendarUI(year, month) {
         const day = document.createElement("div");
         day.className = "day";
         day.dataset.isCurrentDay = year == currentDateTime.year && month == currentDateTime.month && date == currentDateTime.date;
+
         day.addEventListener("drop", (e) => handleDrop(e));
+
         day.addEventListener("dragover", (e) => {
             e.preventDefault();
 
             day.dataset.draggingOver = true;
         });
+
         day.addEventListener("dragleave", (e) => {
             e.preventDefault();
 
@@ -80,6 +94,9 @@ async function loadCalendarUI(year, month) {
         dateText.className = "date";
         dateText.textContent = date + nthOfDate(date) + " ";
         dateText.appendChild(span);
+        dateText.ariaLabel = "Click to view events for this day";
+        // I know i shouldn't use a click event on a h3 but just for effect
+        dateText.addEventListener("click", () => openAndLoadDayViewModal(year, month, date));
 
         const hr = document.createElement("hr");
 

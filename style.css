@@ -1,6 +1,9 @@
 /** Use Inter font from fonts.google.com */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
+/* Import my styles */
+@import "./modal.day-view.css";
+
 /* Set up for all things like padding, font etc. Got to make it look pretty :) */
 *,
 *:before,
@@ -52,7 +55,8 @@ h3 {
 
 h1,
 h2,
-h3 {
+h3,
+p {
     color: var(--text-color);
 }
 
@@ -104,7 +108,15 @@ button {
     border: none;
     font-weight: 700;
     cursor: pointer;
-    transition: scale 100ms ease-in-out;
+    transition: scale 80ms ease-in-out;
+
+    &:hover {
+        scale: 1.01;
+    }
+
+    &:active {
+        scale: 0.99;
+    }
 
     &.primary {
         background-color: hsl(var(--primary-hsl) / 20%);
@@ -116,10 +128,10 @@ button {
 
         @media (prefers-color-scheme: dark) {
             & {
-                background-color: hsl(var(--primary-hsl) / 30%);
+                background-color: hsl(var(--primary-hsl) / 20%);
 
                 &:hover {
-                    background-color: hsl(var(--primary-hsl) / 40%);
+                    background-color: hsl(var(--primary-hsl) / 30%);
                 }
             }
         }
@@ -135,10 +147,11 @@ button {
 
         @media (prefers-color-scheme: dark) {
             & {
-                background-color: hsl(0 0% 40% / 0.25);
+                background-color: hsl(0, 0%, 20%);
+                color: hsl(0 0% 70%);
 
                 &:hover {
-                    background-color: hsl(0 0% 40% / 0.4);
+                    background-color: hsl(0 0% 26%);
                 }
             }
         }
@@ -448,6 +461,10 @@ main {
                 background-color: var(--surface-2);
                 padding: 1rem;
                 min-height: 10rem;
+
+                & .date {
+                    cursor: pointer;
+                }
 
                 &[data-is-current-day="true"] .date {
                     color: hsl(var(--primary-hsl));
